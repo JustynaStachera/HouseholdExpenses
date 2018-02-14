@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta name="description" content="subdescription"/>
+    <meta name="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta name="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">DEBET</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-submenu">
+                <tr>
+                    <form th:action="@{/loans/sort}" method="post" th:object="${loanField}">
+                        <td>
+                            <label for="sort"
+                                   th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}">
+                                <b>Sortuj wg:</b>
+                            </label>
+                        </td>
+                        <td>
+                            <select id="sort"
+                                    class="table-submenu-category-form"
+                                    th:field="*{field}"
+                                    for="sort"
+                                    th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}">
+                                <option th:each="e : ${loansFields}"
+                                        th:value="${e}"
+                                        th:text="${e}"/>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input class="btn-sort"
+                                   type="submit"
+                                   value="SORTUJ"
+                                   for="sort"
+                                   th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                    </form>
+                    <form th:action="@{/loans/findById}" method="post" th:object="${loanId}">
+                        <td>
+                            <label for="find-by-id"
+                                   th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}">
+                                <b>Znajdź wg id:</b>
+                            </label>
+                        </td>
+                        <td>
+                            <input id="find-by-id" type="number" th:field="*{id}"
+                                   th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input class="btn-sort" type="submit" value="ZNAJDŹ"
+                                   th:if="${(loansSortedSize != 0 and (isAdmin == true or isReadOnly == true)) or (loansUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                    </form>
+                    <td>
+                        <a th:href="@{/loans/add}"
+                           th:if="${kindsOfLoanSize != 0 and isAddOnly == true}">
+                            <input class="btn-constant-size btn-float-right" type="button" value="DODAJ"/>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <table class="table-data" th:if="${loansSortedSize != 0}">
+            <tr class="tr-style">
+                <th class="th-style">Id</th>
+                <th class="th-style">Nazwa</th>
+                <th class="th-style">Kto?</th>
+                <th class="th-style">Kwota początkowa<br/>[zł]</th>
+                <th class="th-style">Suma spłat<br/>[zł]</th>
+                <th class="th-style">Odsetki<br/>[zł]</th>
+                <th class="th-style">Opłata miesięczna<br/>[zł]</th>
+                <th class="th-style">Data rozpoczęcia</th>
+                <th class="th-style">Data zakończenia</th>
+                <th class="th-style">Opłacone miesiące</th>
+                <th class="th-style">Czy aktywne?</th>
+                <th class="th-style">Opis</th>
+            </tr>
+            <tr class="tr-style" th:each="e : ${loans}">
+                <td class="td-style" th:text="${e.id}"></td>
+                <td class="td-style" th:text="${e.kindOfLoan.name}"></td>
+                <td class="td-style" th:text="${e.user.person.name + ' ' + e.user.person.surname}"></td>
+                <td class="td-style" th:text="${e.initialAmount}"></td>
+                <td class="td-style" th:text="${e.payoffSum}"></td>
+                <td class="td-style" th:text="${e.interest}"></td>
+                <td class="td-style" th:text="${e.monthPayment}"></td>
+                <td class="td-style" th:text="${e.beginDate}"></td>
+                <td class="td-style" th:text="${e.endDate}"></td>
+                <td class="td-style" th:text="${e.paidUpMonths}"></td>
+                <td class="td-style" th:text="${e.isActive}"></td>
+                <td class="td-style" th:text="${e.description}"></td>
+                <td class="td-modify-remove">
+                    <table>
+                        <tr>
+                            <td>
+                                <a th:href="@{/loans/kindOfLoanDetails/{id}(id=${e.id})}">
+                                    <input class="btn-modify-remove"
+                                           type="submit" title="Szczegóły oferty pożyczki bankowej"
+                                           value="S"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/loans/modify/{id}(id=${e.id})}" th:if="${isModifyOnly}">
+                                    <input class="btn-modify-remove" title="Modyfikuj" type="submit" value="M"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="remove" th:href="@{/loans/remove/{id}(id=${e.id})}" th:if="${isModifyOnly}">
+                                    <input class="btn-modify-remove" title="Usuń" type="submit" value="U"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12">
+                    <b>Łączna suma spłat:</b>
+                    <span th:text="${loanPayoffSumSum}"></span> zł
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12">
+                    <b>W tym odsetki:</b>
+                    <span th:text="${loanInterestSum}"></span> zł
+                </td>
+            </tr>
+        </table>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${loansSortedSize == 0}">
+                <p>Tabela jest pusta!</p>
+            </div>
+        </div>
+        <div class="div-separator">
+            <div class="div-warn-msg" th:if="${kindsOfLoanSize == 0}">
+                <p>Lista ofert pożyczek jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <span class="span-site-subtitle">Uwagi</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-data" th:if="${isLoanMessagesEmpty == false}">
+                <tr>
+                    <th class="th-style" rowspan="2">Id</th>
+                    <th class="th-style" rowspan="2">Nazwa pożyczki</th>
+                    <th class="th-style" rowspan="2">Kto?</th>
+                    <th class="th-style" rowspan="2">Komunikat</th>
+                    <th class="th-style" colspan="2">Okres</th>
+                </tr>
+                <tr>
+                    <th class="th-style">Od</th>
+                    <th class="th-style">Do</th>
+                </tr>
+                <tr class="tr-style" th:each="e : ${loanMessages}">
+                    <td class="td-style td-style-alert" th:text="${e.ids}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.name}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.user.person.name + ' ' + e.user.person.surname}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.message}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.from}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.to}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${isLoanMessagesEmpty == true}">
+                <p>Brak uwag!</p>
+            </div>
+        </div>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-error-msg div-bottom-corner"
+     th:if="${isLoanUserIdInvalid != null and isLoanUserIdInvalid.bool == true}">
+    <p>Brak uprawnień do modyfikacji rekordów innych użytkowników!</p>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${loanAddInfo != null and not #strings.isEmpty(loanAddInfo.field)}">
+    <p th:text="${loanAddInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${loanModifyInfo != null and not #strings.isEmpty(loanModifyInfo.field)}">
+    <p th:text="${loanModifyInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${loanRemoveInfo != null and not #strings.isEmpty(loanRemoveInfo.field)}">
+    <p th:text="${loanRemoveInfo.field}"/>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta value="description" content="subdescription"/>
+    <meta value="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta value="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">PROGNOZOWANIE</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-submenu">
+                <tr>
+                    <form th:action="@{/forecasting/makeForecast}" method="post" th:object="${chosenDate}">
+                        <td>
+                            <label for="forecastingDate"
+                                   th:if="${formsOfPaymentSize != 0 and kindsOfOperationSize != 0 and expenseCategoriesSize != 0}">
+                                <b>Prognozuj<br/>do daty:</b>
+                            </label>
+                        </td>
+                        <td>
+                            <input id="forecastingDate" type="date" th:field="*{date}" class="input-fitting"
+                                   th:if="${formsOfPaymentSize != 0 and kindsOfOperationSize != 0 and expenseCategoriesSize != 0}"/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input class="btn-sort" type="submit" value="PROGNOZUJ"
+                                   th:if="${formsOfPaymentSize != 0 and kindsOfOperationSize != 0 and expenseCategoriesSize != 0}"/>
+                        </td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <table class="table-data" th:if="${forecastingListSize != 0}">
+            <tr>
+                <td colspan="7" class="td-text td-text-padding">
+                    <strong>Uwaga!</strong> Jeśli w miejscu 'Id' widnieje litera <b>P</b>, to znaczy, że jest to
+                    prognoza. 'Cena' w prognozie jest średnią arytmetyczną wszystkich zarejestrowanych wydatków, na
+                    podstawie których prognoza powstała.
+                </td>
+            </tr>
+            <tr>
+                <th class="th-style" rowspan="2">Id</th>
+                <th class="th-style" rowspan="2">Nazwa</th>
+                <th class="th-style" rowspan="2">Kto?</th>
+                <th class="th-style" rowspan="2">Kategoria</th>
+                <th class="th-style" rowspan="2">Cena<br/>[zł]</th>
+                <th class="th-style" colspan="2">Okres</th>
+            </tr>
+            <tr>
+                <td class="th-style">Od</td>
+                <td class="th-style">Do</td>
+            </tr>
+            <tr class="tr-style" th:each="e : ${forecastingList}">
+                <td class="td-style" th:text="${e.id}"></td>
+                <td class="td-style" th:text="${e.name}"></td>
+                <td class="td-style" th:text="${e.user.person.name + ' ' + e.user.person.surname}"></td>
+                <td class="td-style" th:text="${e.expenseCategory.name}"></td>
+                <td class="td-style" th:text="${e.price}"></td>
+                <td class="td-style" th:text="${e.fromDate}"></td>
+                <td class="td-style" th:text="${e.toDate}"></td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <b>Łączna suma prognoz:</b>
+                    <span th:text="${forecastingSum}"></span> zł
+                </td>
+            </tr>
+        </table>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${forecastingListSize == 0}">
+                <p>Brak danych!</p>
+            </div>
+        </div>
+        <div class="div-separator">
+            <div class="div-warn-msg" th:if="${formsOfPaymentSize == 0}">
+                <p>Lista form płatności jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+            <div class="div-warn-msg" th:if="${kindsOfOperationSize == 0}">
+                <p>Lista rodzajów operacji jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+            <div class="div-warn-msg" th:if="${expenseCategoriesSize == 0}">
+                <p>Lista kategorii wydatków jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-error-msg div-bottom-corner"
+     th:if="${isDateError != null and isDateError.bool == true}">
+    <p>Wprowadzana data musi mieć format: dd/MM/yyyy!</p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

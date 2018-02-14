@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta value="description" content="subdescription"/>
+    <meta value="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta value="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">RODZAJE OPERACJI</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-submenu">
+                <tr>
+                    <form th:action="@{/edit/kindsOfOperation/sort}" method="post" th:object="${kindOfOperationField}">
+                        <td>
+                            <label for="sort" th:unless="${kindsOfOperationSize == 0}"><b>Sortuj wg:</b></label>
+                        </td>
+                        <td>
+                            <select id="sort" class="table-submenu-category-form" th:field="*{field}"
+                                    th:unless="${kindsOfOperationSize == 0}">
+                                <option th:each="e : ${kindOfOperationFields}"
+                                        th:value="${e}"
+                                        th:text="${e}">
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="btn-sort" type="submit" value="SORTUJ"
+                                   th:unless="${kindsOfOperationSize == 0}"/>
+                        </td>
+                    </form>
+                    <td>
+                        <a th:href="@{/edit/kindsOfOperation/add}">
+                            <input class="btn-constant-size btn-float-right" type="button" value="DODAJ"/>
+                        </a>
+                        <a th:href="@{/edit}">
+                            <!-- W formularzu nie może być wiele submit-ów, bo wtedy wszystkie przyciski będą wysyłać formularz! -->
+                            <input class="btn-constant-size btn-float-right" type="button" value="WRÓĆ"/>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <table class="table-data" th:unless="${kindsOfOperationSize == 0}">
+            <tr class="tr-style">
+                <th class="th-style">Id</th>
+                <th class="th-style">Nazwa</th>
+            </tr>
+            <tr class="tr-style" th:each="e : ${kindsOfOperation}">
+                <td class="td-style" th:text="${e.id}"></td>
+                <td class="td-style" th:text="${e.name}"></td>
+                <td class="td-modify-remove">
+                    <a class="modify"
+                       th:href="@{/edit/kindsOfOperation/modify/{id}(id=${e.id})}">
+                        <input class="btn-modify-remove" title="Modyfikuj" type="button" value="M"/>
+                    </a>
+                    <a class="remove"
+                       th:href="@{/edit/kindsOfOperation/remove/{id}(id=${e.id})}">
+                        <input class="btn-modify-remove" title="Usuń" type="button" value="U"/>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${kindsOfOperationSize == 0}">
+                <p>Tabela jest pusta!</p>
+            </div>
+        </div>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-success-msg div-bottom-corner"
+     th:if="${kindOfOperationAddInfo != null and not #strings.isEmpty(kindOfOperationAddInfo.field)}">
+    <p th:text="${kindOfOperationAddInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${kindOfOperationModifyInfo != null and not #strings.isEmpty(kindOfOperationModifyInfo.field)}">
+    <p th:text="${kindOfOperationModifyInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${kindOfOperationRemoveInfo != null and not #strings.isEmpty(kindOfOperationRemoveInfo.field)}">
+    <p th:text="${kindOfOperationRemoveInfo.field}"/>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

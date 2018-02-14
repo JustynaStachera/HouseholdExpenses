@@ -1,0 +1,16 @@
+com.justyna.stachera.householdexpenses
+com.justyna.stachera.householdexpenses.constants
+com.justyna.stachera.householdexpenses.controller
+com.justyna.stachera.householdexpenses.dao.custom
+com.justyna.stachera.householdexpenses.dao.jrepository
+com.justyna.stachera.householdexpenses.domain.enums
+com.justyna.stachera.householdexpenses.domain.helpers
+com.justyna.stachera.householdexpenses.domain.joined
+com.justyna.stachera.householdexpenses.domain.main
+com.justyna.stachera.householdexpenses.security.configuration
+com.justyna.stachera.householdexpenses.security.controller
+com.justyna.stachera.householdexpenses.security.enums
+com.justyna.stachera.householdexpenses.security.service
+com.justyna.stachera.householdexpenses.service
+com.justyna.stachera.householdexpenses.utils
+com.justyna.stachera.householdexpenses.validation

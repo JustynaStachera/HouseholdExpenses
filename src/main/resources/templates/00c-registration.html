@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta value="description" content="subdescription"/>
+    <meta value="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta value="author" content="Justyna Stachera"/>
+    <!--<link rel="stylesheet" th:href="@{/css/registration.css}"/>-->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-registration-container">
+    <div id="registration">
+        <h2 align="center">REJESTRACJA</h2>
+        <div>
+            <div class="div-line"></div>
+            <h4 align="center">DANE LOGOWANIA</h4>
+            <div class="div-line"></div>
+        </div>
+        <form th:action="@{/registration}" method="post" th:object="${user}">
+            <div>
+                <label for="username">*Login:</label>
+                <input class="input-field" type="text" id="username" name="username"
+                       th:field="*{username}"/>
+            </div>
+            <div>
+                <label for="password">*Hasło:</label>
+                <input class="input-field" type="password" id="password" name="password"
+                       th:field="*{password}"/>
+            </div>
+            <div>
+                <label for="password-confirm">*Powtórz hasło:</label>
+                <input class="input-field" type="password" id="password-confirm" name="password"
+                       th:field="*{confirmPassword}"/>
+            </div>
+            <div>
+                <div class="div-line"></div>
+                <h4 align="center">DANE PERSONALNE</h4>
+                <div class="div-line"></div>
+            </div>
+            <div>
+                <label for="name">*Imię:</label>
+                <input class="input-field" type="text" id="name" name="name" th:field="*{person.name}"/>
+            </div>
+            <div>
+                <label for="surname">*Nazwisko:</label>
+                <input class="input-field" type="text" id="surname" name="surname" th:field="*{person.surname}"/>
+            </div>
+            <div>
+                <label for="age">*Wiek:</label>
+                <input class="input-field" type="number" id="age" name="age" th:field="*{person.age}"/>
+            </div>
+            <div>
+                <label for="PESEL">*PESEL:</label>
+                <input class="input-field" type="text" id="PESEL" name="PESEL" th:field="*{person.pesel}"/>
+            </div>
+            <div class="div-btn-panel">
+                <p align="center">
+                    <input class="btn" type="submit" value="Rejestracja"/>
+                    <input class="btn" type="reset" value="Reset"/>
+                </p>
+            </div>
+        </form>
+        <p align="center">
+            <a th:href="@{/login}">
+                <input class="btn" type="submit" value="Powrót"/>
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="div-bottom-corner">
+    <div class="div-error-msg" th:each="e : ${userErrors}">
+        <p th:text="${e.field}"/>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta value="description" content="subdescription"/>
+    <meta value="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta value="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">WYDATKI</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-submenu">
+                <tr>
+                    <form th:action="@{/expenses/sort}" method="post" th:object="${expenseField}">
+                        <td>
+                            <label for="sort"
+                                   th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}">
+                                <b>Sortuj wg:</b>
+                            </label>
+                        </td>
+                        <td>
+                            <select id="sort" class="table-submenu-category-form" th:field="*{field}"
+                                    th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}">
+                                <option th:each="e : ${expenseFields}"
+                                        th:value="${e}"
+                                        th:text="${e}">
+                                </option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input class="btn-sort" type="submit" value="SORTUJ"
+                                   th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                    </form>
+                    <form th:action="@{/expenses/findById}" method="post" th:object="${expenseId}">
+                        <td>
+                            <label for="find-by-id"
+                                   th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}">
+                                <b>Znajdź wg id:</b>
+                            </label>
+                        </td>
+                        <td>
+                            <input id="find-by-id" type="number" th:field="*{id}"
+                                   th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input class="btn-sort" type="submit" value="ZNAJDŹ"
+                                   th:if="${(expensesSize != 0 and (isAdmin == true or isReadOnly == true)) or (expensesUserSize != 0 and isReadOnly == false)}"/>
+                        </td>
+                    </form>
+                    <td>
+                        <a th:href="@{/expenses/add}"
+                           th:if="${kindsOfOperationSize != 0
+                                    and formsOfPaymentSize != 0
+                                    and expenseCategoriesSize != 0
+                                    and isAddOnly == true}">
+                            <input class="btn-constant-size btn-float-right" type="button" value="DODAJ"/>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <table class="table-data" th:if="${expensesSortedSize != 0}">
+            <tr class="tr-style">
+                <th class="th-style">Id</th>
+                <th class="th-style">Nazwa</th>
+                <th class="th-style">Kto?</th>
+                <th class="th-style">Kategoria</th>
+                <th class="th-style">Forma<br/>zapłaty</th>
+                <th class="th-style">Rodzaj operacji</th>
+                <th class="th-style">Okres<br/>[dni]</th>
+                <th class="th-style">Cena<br/>[zł]</th>
+                <th class="th-style">Data</th>
+                <th class="th-style">Opis</th>
+            </tr>
+            <tr class="tr-style" th:each="e : ${expenses}">
+                <td class="td-style" th:text="${e.id}"></td>
+                <td class="td-style" th:text="${e.name}"></td>
+                <td class="td-style" th:text="${e.user.person.name + ' ' + e.user.person.surname}"></td>
+                <td class="td-style" th:text="${e.expenseCategory.name}"></td>
+                <td class="td-style" th:text="${e.formOfPayment.name}"></td>
+                <td class="td-style" th:text="${e.kindOfOperation.name}"></td>
+                <td class="td-style" th:text="${e.daysLeft}"></td>
+                <td class="td-style" th:text="${e.price}"></td>
+                <td class="td-style" th:text="${e.dateOfPurchase}"></td>
+                <td class="td-style" th:text="${e.description}"></td>
+                <td class="td-modify-remove">
+                    <a th:href="@{/expenses/modify/{id}(id=${e.id})}"
+                       th:if="${isModifyOnly == true}">
+                        <input class="btn-modify-remove" title="Modyfikuj" type="button" value="M"/>
+                    </a>
+                    <a class="remove" th:href="@{/expenses/remove/{id}(id=${e.id})}" th:if="${isModifyOnly == true}">
+                        <input class="btn-modify-remove" title="Usuń" type="button" value="U"/>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <b>Łączna suma wydatków:</b>
+                    <span th:text="${expensesSum}"></span> zł
+                </td>
+            </tr>
+        </table>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${expensesSortedSize == 0}">
+                <p>Tabela jest pusta!</p>
+            </div>
+        </div>
+        <div class="div-separator">
+            <div class="div-warn-msg" th:if="${formsOfPaymentSize == 0}">
+                <p>Lista form płatności jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+            <div class="div-warn-msg" th:if="${kindsOfOperationSize == 0}">
+                <p>Lista rodzajów operacji jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+            <div class="div-warn-msg" th:if="${expenseCategoriesSize == 0}">
+                <p>Lista kategorii wydatków jest pusta!</p>
+                <p class="p-tip">
+                    <b>Wskazówka:</b> skontaktuj się z administratorem, by móc korzystać z tej zakładki.
+                </p>
+            </div>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <span class="span-site-subtitle">Uwagi</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-separator">
+            <table class="table-data" th:if="${isExpenseMessagesEmpty == false}">
+                <tr>
+                    <th class="th-style" rowspan="2">Id powiązanych wydatków</th>
+                    <th class="th-style" rowspan="2">Nazwa wydatku</th>
+                    <th class="th-style" rowspan="2">Kto?</th>
+                    <th class="th-style" rowspan="2">Komunikat</th>
+                    <th class="th-style" colspan="2">Okres</th>
+                </tr>
+                <tr>
+                    <th class="th-style">Od</th>
+                    <th class="th-style">Do</th>
+                </tr>
+                <tr class="tr-style" th:each="e : ${expenseMessages}">
+                    <td class="td-style td-style-alert" th:text="${e.ids}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.name}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.user.person.name + ' ' + e.user.person.surname}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.message}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.from}"></td>
+                    <td class="td-style td-style-alert" th:text="${e.to}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-separator">
+            <div class="div-info-msg" th:if="${isExpenseMessagesEmpty == true}">
+                <p>Brak uwag!</p>
+            </div>
+        </div>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-error-msg div-bottom-corner"
+     th:if="${isExpenseUserIdInvalid != null and isExpenseUserIdInvalid.bool == true}">
+    <p>Brak uprawnień do modyfikacji rekordów innych użytkowników!</p>
+</div>
+<div class="div-error-msg div-bottom-corner"
+     th:if="${isExpensePeriodicInvalid != null and isExpensePeriodicInvalid.bool == true}">
+    <p>W celu usunięcia tego rekordu usuń wszystkie powiązane z nim rekordy cykliczne!</p>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${(expenseAddInfo != null and not #strings.isEmpty(expenseAddInfo.field))}">
+    <p th:text="${expenseAddInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${expenseModifyInfo != null and not #strings.isEmpty(expenseModifyInfo.field)}">
+    <p th:text="${expenseModifyInfo.field}"/>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${expenseRemoveInfo != null and not #strings.isEmpty(expenseRemoveInfo.field)}">
+    <p th:text="${expenseRemoveInfo.field}"/>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

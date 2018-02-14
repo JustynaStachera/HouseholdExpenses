@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta name="description" content="subdescription"/>
+    <meta name="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta name="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">DEBET - DODAJ</span>
+        <div class="div-dotted-line-vertically"></div>
+        <div class="div-menu">
+            <a th:href="@{/loans/selectAll}">
+                <input class="btn-constant-size btn-float-right" type="button" value="WRÓĆ"/>
+            </a>
+        </div>
+        <div class="div-dotted-line-vertically"></div>
+        <form th:action="@{/loans/add}" method="post" th:object="${loanJoined}">
+            <table>
+                <tr>
+                    <td><label for="kindOfLoan">*Nazwa pożyczki:</label></td>
+                    <td>
+                        <select id="kindOfLoan" class="table-submenu-category" th:field="*{kindOfLoanId}">
+                            <option th:each="a : ${kindsOfLoan}"
+                                    th:value="${a.id}"
+                                    th:text="${a.name}"
+                                    th:title="${'Bank: ' + a.bank.name +
+                                                '; Procent [%]: ' + a.percent +
+                                                '; Czas trwania [miesiące]: ' + a.durationTime +
+                                                '; Kapitalizacja: ' + a.capitalisation.name}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-text" colspan="2">
+                        <strong>Uwaga!</strong> Po rozwinięciu listy najedź na nazwę pożyczki, by zobaczyć szczegóły.
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="initialAmount">*Kwota początkowa [zł]:</label></td>
+                    <td><input id="initialAmount" class="input-field" type="number" step="0.01"
+                               th:field="*{initialAmount}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="beginDate">*Data rozpoczęcia:</label></td>
+                    <td><input id="beginDate" class="input-field" type="date" th:field="*{beginDate}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="paidUpMonths">*Opłacone miesiące:</label></td>
+                    <td><input id="paidUpMonths" class="input-field" type="number" th:field="*{paidUpMonths}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="description">Opis:</label></td>
+                    <td><input id="description" class="input-field" type="text" th:field="*{description}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p align="center">
+                            <input class="btn-constant-size" type="submit" value="Dodaj"/>
+                            <input class="btn-constant-size" type="reset" value="Reset"/>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-bottom-corner">
+    <div class="div-error-msg" th:each="e : ${loanErrors}">
+        <p th:text="${e.field}"/>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

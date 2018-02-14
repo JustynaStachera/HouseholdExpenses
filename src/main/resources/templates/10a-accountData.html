@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- język strony -->
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- zestaw znaków pl -->
+    <meta charset="utf-8"/>
+    <title>Aplikacja webowa do zarządzania wydatkami domowymi</title>
+    <meta name="description" content="subdescription"/>
+    <meta name="keywords" content="value1, value2, value3 ect."/>
+    <!-- to jest pod IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/>
+    <!-- optional -->
+    <meta name="author" content="Justyna Stachera"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,700,700i&amp;subset=latin-ext"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet"/>
+</head>
+<body>
+<div id="div-container">
+    <div id="div-logo">
+        <span class="span-site-title">WYDATKI DOMOWE</span>
+    </div>
+    <div id="div-panel">
+        <div class="div-dropdown">
+            Jesteś zalogowany jako: <span id="span-user-info" th:text="${logInUser}"></span>
+            <button id="btn-dropdown">
+                <img id="img-chevron-down" th:src="@{/img/chevron_down.png}"/>
+            </button>
+            <div id="div-dropdown-list" class="div-dropdown-content">
+                <a th:href="@{/accountData}">PANEL UŻYTKOWNIKA</a>
+                <form th:action="@{/logout}" method="post">
+                    <a>
+                        <input id="btn-logout" type="submit" value="WYLOGUJ"/>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="div-menu">
+        <a th:href="@{/help}">
+            <div class="div-menu-option-single">INFO &amp; POMOC</div>
+        </a>
+        <a th:href="@{/expenses/selectAll}">
+            <div class="div-menu-option-single">WYDATKI</div>
+        </a>
+        <a th:href="@{/loans/selectAll}">
+            <div class="div-menu-option-single">DEBET</div>
+        </a>
+        <a th:href="@{/taxes/selectAll}">
+            <div class="div-menu-option-single">PODATKI</div>
+        </a>
+        <a th:if="${isReadOnly}" th:href="@{/statistics}">
+            <div class="div-menu-option-single">STATYSTYKI</div>
+        </a>
+        <a th:href="@{/forecasting/selectAll}">
+            <div class="div-menu-option-single">PROGNOZOWANIE</div>
+        </a>
+        <a th:if="${isAdmin}" th:href="@{/edit}">
+            <div class="div-menu-option-single">EDYCJA</div>
+        </a>
+    </div>
+    <div id="div-content">
+        <span class="span-site-title">DANE</span>
+        <div class="div-dotted-line-vertically"></div>
+        <form th:action="@{/accountData/modify/data}" method="post" th:object="${person}">
+            <table>
+                <tr>
+                    <td><label>Imię:</label></td>
+                    <td><input class="input-field" type="text" th:field="*{name}"/></td>
+                </tr>
+                <tr>
+                    <td><label>Nazwisko:</label></td>
+                    <td><input class="input-field" type="text" th:field="*{surname}"/></td>
+                </tr>
+                <tr>
+                    <td><label>Wiek:</label></td>
+                    <td><input class="input-field" type="text" th:field="*{age}"/></td>
+                </tr>
+                <tr>
+                    <td><label>PESEL:</label></td>
+                    <td><input class="input-field" type="text" th:field="*{pesel}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="center">
+                        <input class="btn-constant-size" type="submit" value="Modyfikuj"/>
+                        <input class="btn-constant-size" type="reset" value="Reset"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="div-dotted-line-vertically"></div>
+        <span class="span-site-title">ZMIEŃ HASŁO</span>
+        <div class="div-dotted-line-vertically"></div>
+        <form th:action="@{/accountData/modify/password}" method="post" th:object="${password}">
+            <table>
+                <tr>
+                    <td><label>Stare hasło:</label></td>
+                    <td><input class="input-field" type="password" th:field="*{oldPassword}"/></td>
+                </tr>
+                <tr>
+                    <td><label>Nowe hasło:</label></td>
+                    <td><input class="input-field" type="password" th:field="*{newPassword}"/></td>
+                </tr>
+                <tr>
+                    <td><label>Powtórz hasło:</label></td>
+                    <td><input class="input-field" type="password" th:field="*{confirmPassword}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="center">
+                        <input class="btn-constant-size" type="submit" value="Zmień"/>
+                        <input class="btn-constant-size" type="reset" value="Reset"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="div-dotted-line-vertically"></div>
+        <span class="span-site-title">USUŃ KONTO</span>
+        <div class="div-dotted-line-vertically"></div>
+        <table>
+            <tr>
+                <td>
+                    <a class="a-remove-user" th:href="@{/removeAccount}">
+                        <input class="btn-constant-size" type="button" value="Usuń"/>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="div-footer">
+        Justyna Stachera - <b>PRACA INŻYNIERSKA</b> - 2018 - wszelkie prawa zastrzeżone &copy;
+    </div>
+</div>
+
+<div class="div-bottom-corner">
+    <div class="div-error-msg"
+         th:if="${removeAccountError != null and not #strings.isEmpty(removeAccountError.field)}">
+        <p th:text="${removeAccountError.field}"/>
+    </div>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${dataModifyInfo != null and not #strings.isEmpty(dataModifyInfo.field)}">
+    <p th:text="${dataModifyInfo.field}"/>
+</div>
+<div class="div-bottom-corner">
+    <div class="div-error-msg" th:each="e : ${passwordErrors}">
+        <p th:text="${e.field}"/>
+    </div>
+</div>
+<div class="div-success-msg div-bottom-corner"
+     th:if="${passwordModifyInfo != null and not #strings.isEmpty(passwordModifyInfo.field)}">
+    <p th:text="${passwordModifyInfo.field}"/>
+</div>
+<div class="div-bottom-corner">
+    <div class="div-error-msg" th:each="e : ${dataErrors}">
+        <p th:text="${e.field}"/>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>
