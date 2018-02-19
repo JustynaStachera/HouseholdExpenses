@@ -12,66 +12,66 @@ package com.justyna.stachera.householdexpenses.constants;
  */
 public interface SBWebsitesAndMessages
 {
-    String loginPage = "00a-loginPage";
-    String logoutPage = "00b-logoutPage";
-    String registration = "00c-registration";
-    String registrationSuccess = "00d-registrationSuccess";
-    String removePage = "00e-removePage";
+    String LOGIN_PAGE = "00a-loginPage";
+    String LOGOUT_PAGE = "00b-logoutPage";
+    String REGISTRATION = "00c-registration";
+    String REGISTRATION_SUCCESS = "00d-registrationSuccess";
+    String REMOVE_PAGE = "00e-removePage";
 
-    String infoAndHelp = "01a-infoAndHelp";
+    String INFO_AND_HELP = "01a-infoAndHelp";
 
-    String expenses = "02a-expenses";
-    String expensesAdd = "02b-expenses";
-    String expensesModify = "02c-expenses";
+    String EXPENSES = "02a-expenses";
+    String EXPENSES_ADD = "02b-expenses";
+    String EXPENSES_MODIFY = "02c-expenses";
 
-    String loans = "05a-loans";
-    String loansAdd = "05b-loans";
-    String loansModify = "05c-loans";
-    String loansDetails = "05d-loans";
+    String LOANS = "05a-loans";
+    String LOANS_ADD = "05b-loans";
+    String LOANS_MODIFY = "05c-loans";
+    String LOANS_DETAILS = "05d-loans";
 
-    String taxes = "06a-taxes";
-    String taxesAdd = "06b-taxes";
-    String taxesModify = "06c-taxes";
+    String TAXES = "06a-taxes";
+    String TAXES_ADD = "06b-taxes";
+    String TAXES_MODIFY = "06c-taxes";
 
-    String statisticsMenu = "07a-statistics";
-    String statisticsExpenses = "07b-statistics-expenses";
-    String statisticsLoans = "07c-statistics-loans";
-    String statisticsTaxes = "07d-statistics-taxes";
+    String STATISTICS_MENU = "07a-statistics";
+    String STATISTICS_EXPENSES = "07b-statistics-expenses";
+    String STATISTICS_LOANS = "07c-statistics-loans";
+    String STATISTICS_TAXES = "07d-statistics-taxes";
 
-    String forecasting = "08a-forecasting";
+    String FORECASTING = "08a-forecasting";
 
-    String menuEdit = "09a-menuEdit";
+    String MENU_EDIT = "09a-menuEdit";
 
-    String menuEditExpenseCategories = "09ba-menuEditExpenseCategories";
-    String menuEditExpenseCategoriesAdd = "09bb-menuEditExpenseCategories";
-    String menuEditExpenseCategoriesModify = "09bc-menuEditExpenseCategories";
+    String MENU_EDIT_EXPENSE_CATEGORIES = "09ba-menuEditExpenseCategories";
+    String MENU_EDIT_EXPENSE_CATEGORIES_ADD = "09bb-menuEditExpenseCategories";
+    String MENU_EDIT_EXPENSE_CATEGORIES_MODIFY = "09bc-menuEditExpenseCategories";
 
-    String menuEditFormsOfPayment = "09da-menuEditFormsOfPayment";
-    String menuEditFormsOfPaymentAdd = "09db-menuEditFormsOfPayment";
-    String menuEditFormsOfPaymentModify = "09dc-menuEditFormsOfPayment";
+    String MENU_EDIT_FORMS_OF_PAYMENT = "09da-menuEditFormsOfPayment";
+    String MENU_EDIT_FORMS_OF_PAYMENT_ADD = "09db-menuEditFormsOfPayment";
+    String MENU_EDIT_FORMS_OF_PAYMENT_MODIFY = "09dc-menuEditFormsOfPayment";
 
-    String menuEditKindsOfOperation = "09ea-menuEditKindsOfOperation";
-    String menuEditKindsOfOperationAdd = "09eb-menuEditKindsOfOperation";
-    String menuEditKindsOfOperationModify = "09ec-menuEditKindsOfOperation";
+    String MENU_EDIT_KINDS_OF_OPERATION = "09ea-menuEditKindsOfOperation";
+    String MENU_EDIT_KINDS_OF_OPERATION_ADD = "09eb-menuEditKindsOfOperation";
+    String MENU_EDIT_KINDS_OF_OPERATION_MODIFY = "09ec-menuEditKindsOfOperation";
 
-    String menuEditBanks = "09fa-menuEditBanks";
-    String menuEditBanksAdd = "09fb-menuEditBanks";
-    String menuEditBanksModify = "09fc-menuEditBanks";
+    String MENU_EDIT_BANKS = "09fa-menuEditBanks";
+    String MENU_EDIT_BANKS_ADD = "09fb-menuEditBanks";
+    String MENU_EDIT_BANKS_MODIFY = "09fc-menuEditBanks";
 
-    String menuEditKindsOfLoan = "09ga-menuEditKindsOfLoan";
-    String menuEditKindsOfLoanAdd = "09gb-menuEditKindsOfLoan";
-    String menuEditKindsOfLoanModify = "09gc-menuEditKindsOfLoan";
+    String MENU_EDIT_KINDS_OF_LOAN = "09ga-menuEditKindsOfLoan";
+    String MENU_EDIT_KINDS_OF_LOAN_ADD = "09gb-menuEditKindsOfLoan";
+    String MENU_EDIT_KINDS_OF_LOAN_MODIFY = "09gc-menuEditKindsOfLoan";
 
-    String menuEditUsers = "09ia-menuEditUsers";
-    String menuEditUsersAdd = "09ib-menuEditUsers";
-    String menuEditUsersModify = "09ic-menuEditUsers";
-    String menuEditUsersPassword = "09id-menuEditUsers";
+    String MENU_EDIT_USERS = "09ia-menuEditUsers";
+    String MENU_EDIT_USERS_ADD = "09ib-menuEditUsers";
+    String MENU_EDIT_USERS_MODIFY = "09ic-menuEditUsers";
+    String MENU_EDIT_USERS_PASSWORD = "09id-menuEditUsers";
 
-    String menuEditCapitalisations = "09ja-menuEditCapitalisations";
-    String menuEditCapitalisationsAdd = "09jb-menuEditCapitalisations";
-    String menuEditCapitalisationsModify = "09jc-menuEditCapitalisations";
+    String MENU_EDIT_CAPITALISATIONS = "09ja-menuEditCapitalisations";
+    String MENU_EDIT_CAPITALISATIONS_ADD = "09jb-menuEditCapitalisations";
+    String MENU_EDIT_CAPITALISATIONS_MODIFY = "09jc-menuEditCapitalisations";
 
-    String accountData = "10a-accountData";
+    String ACCOUNT_DATA = "10a-accountData";
 
     String ADMIN_RIGHTS_ACCESS_MSG = "Nie można sobie odebrać praw administratora!";
     String ADMIN_MODIFY_ACCESS_MSG = "Brak uprawnień do modyfikacji konta innego administratora!";

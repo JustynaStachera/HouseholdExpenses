@@ -33,18 +33,18 @@ public class SBExpenseCategory
     @Id
     @GeneratedValue
     private Long id;
-
+    
     /**
      * Expense category name.
      */
     private String name;
-
+    
     /**
      * {@link SBExpense} collection including this {@link SBExpenseCategory} object.
      */
     @OneToMany(mappedBy = "expenseCategory", cascade = CascadeType.PERSIST)
     private Set<SBExpense> expenses = new LinkedHashSet<>();
-
+    
     @Override
     public String toString()
     {

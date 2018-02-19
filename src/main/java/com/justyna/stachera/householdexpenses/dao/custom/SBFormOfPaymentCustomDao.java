@@ -23,7 +23,7 @@ public interface SBFormOfPaymentCustomDao
      * @param formOfPayment {@link SBFormOfPayment} object to modify.
      */
     void modify(SBFormOfPayment formOfPayment);
-
+    
     /**
      * It modifies the record as part of the transaction.
      *

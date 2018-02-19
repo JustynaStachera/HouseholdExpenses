@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Enum which contains values needed to sort 'sbform_of_payment' records and viewing notifications on drop list.
  */
 public enum SBFormOfPaymentFields

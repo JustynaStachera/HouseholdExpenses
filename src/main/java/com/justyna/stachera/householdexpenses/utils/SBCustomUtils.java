@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains custom utils like converting, rounding etc.
  */
 public class SBCustomUtils
@@ -62,7 +62,7 @@ public class SBCustomUtils
      * It create the recurring payments schedule.
      *
      * @param firstDate First payment date.
-     * @param lastDate Last payment date.
+     * @param lastDate  Last payment date.
      * @param DAYS_LEFT Interval time between two dates in days. It concerns the recurring payments.
      * @return Recurring payments schedule.
      */
@@ -104,8 +104,8 @@ public class SBCustomUtils
      * It checks if any date is in period.
      *
      * @param firstDate First payment date.
-     * @param lastDate Last payment date.
-     * @param dates Date list.
+     * @param lastDate  Last payment date.
+     * @param dates     Date list.
      * @return True if date is in period, otherwise false.
      */
     public static boolean isAnyDateInPeriod(LocalDate firstDate, LocalDate lastDate, List<LocalDate> dates)
@@ -124,8 +124,8 @@ public class SBCustomUtils
     /**
      * It checks if date is unique.
      *
-     * @param schedule Recurring payments schedule.
-     * @param dates Date list.
+     * @param schedule  Recurring payments schedule.
+     * @param dates     Date list.
      * @param checkDate Date to check.
      * @return True if date is unique, otherwise false.
      */
@@ -149,9 +149,9 @@ public class SBCustomUtils
     /**
      * It creates forecasting.
      *
-     * @param logInUser Logged in user.
-     * @param allUsers All user list.
-     * @param expenses Expense list.
+     * @param logInUser  Logged in user.
+     * @param allUsers   All user list.
+     * @param expenses   Expense list.
      * @param chosenDate The date the forecast is made to.
      * @return Forecast as list.
      */
@@ -286,8 +286,8 @@ public class SBCustomUtils
     /**
      * It returns expense messages about the recurring payments.
      *
-     * @param logInUser Logged in user.
-     * @param allUsers All user list.
+     * @param logInUser   Logged in user.
+     * @param allUsers    All user list.
      * @param allExpenses All expense list.
      * @return Expense messages as list.
      */
@@ -341,7 +341,8 @@ public class SBCustomUtils
                 {
                     if (!isAnyDateInPeriod(period.get(0), period.get(1), dates))
                     {
-                        SBMessage message = new SBMessage(tmpIdsList, name, user, period.get(0), period.get(1), "BRAK WPŁATY");
+                        SBMessage message = new SBMessage(tmpIdsList, name, user, period.get(0), period.get(1),
+                                                          "BRAK WPŁATY");
 
                         messages.add(message);
                     }
@@ -356,8 +357,8 @@ public class SBCustomUtils
      * It returns loan messages if someone doesn't pay loan.
      *
      * @param logInUser Logged in user.
-     * @param allUsers All user list.
-     * @param allLoans All loan list.
+     * @param allUsers  All user list.
+     * @param allLoans  All loan list.
      * @return Loan messages as list.
      */
     public static List<SBMessage> loanMessages(SBUser logInUser, List<SBUser> allUsers, List<SBLoan> allLoans)
@@ -378,7 +379,8 @@ public class SBCustomUtils
         for (SBUser user : users)
         {
             List<SBLoan> loanList = allLoans.stream()
-                                            .filter(p -> p.getUser().getUsername().equalsIgnoreCase(user.getUsername()) &&
+                                            .filter(p -> p.getUser().getUsername()
+                                                          .equalsIgnoreCase(user.getUsername()) &&
                                                          p.getIsActive())
                                             .collect(Collectors.toList());
 
@@ -419,8 +421,8 @@ public class SBCustomUtils
      * It returns tax messages if someone doesn't pay tax.
      *
      * @param logInUser Logged in user.
-     * @param allUsers All user list.
-     * @param allTaxes All taxes list.
+     * @param allUsers  All user list.
+     * @param allTaxes  All taxes list.
      * @return Tax messages as list.
      */
     public static List<SBMessage> taxMessages(SBUser logInUser, List<SBUser> allUsers, List<SBTax> allTaxes)
@@ -442,7 +444,7 @@ public class SBCustomUtils
         {
             List<SBTax> taxList = allTaxes.stream()
                                           .filter(f -> f.getUser().getUsername().equals(user.getUsername()) &&
-                                                    !f.getIsPaid())
+                                                       !f.getIsPaid())
                                           .collect(Collectors.toList());
 
             for (SBTax t : taxList)

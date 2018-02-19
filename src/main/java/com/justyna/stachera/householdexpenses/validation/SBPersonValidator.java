@@ -32,7 +32,7 @@ public class SBPersonValidator implements Validator
     /**
      * Argument constructor.
      *
-     * @param personDao     It provides methods related with 'sbperson' table from database.
+     * @param personDao   It provides methods related with 'sbperson' table from database.
      * @param environment It provides methods to get the error messages from messages.properties file.
      */
     @Autowired
@@ -67,27 +67,32 @@ public class SBPersonValidator implements Validator
 
         if (isNameEmpty(person))
         {
-            errors.rejectValue("name", "SBPerson.name.emptyMismatch", environment.getProperty("SBPerson.name.emptyMismatch"));
+            errors.rejectValue("name", "SBPerson.name.emptyMismatch",
+                               environment.getProperty("SBPerson.name.emptyMismatch"));
         }
 
         if (isSurnameEmpty(person))
         {
-            errors.rejectValue("surname", "SBPerson.surname.emptyMismatch", environment.getProperty("SBPerson.surname.emptyMismatch"));
+            errors.rejectValue("surname", "SBPerson.surname.emptyMismatch",
+                               environment.getProperty("SBPerson.surname.emptyMismatch"));
         }
 
         if (isAgeNull(person))
         {
-            errors.rejectValue("age", "SBPerson.age.nullMismatch", environment.getProperty("SBPerson.age.nullMismatch"));
+            errors.rejectValue("age", "SBPerson.age.nullMismatch",
+                               environment.getProperty("SBPerson.age.nullMismatch"));
         }
 
         if (!isPeselValid(person))
         {
-            errors.rejectValue("pesel", "SBPerson.pesel.validMismatch", environment.getProperty("SBPerson.pesel.validMismatch"));
+            errors.rejectValue("pesel", "SBPerson.pesel.validMismatch",
+                               environment.getProperty("SBPerson.pesel.validMismatch"));
         }
 
         if (!isPeselUnique(person))
         {
-            errors.rejectValue("pesel", "SBPerson.pesel.uniqueMismatch", environment.getProperty("SBPerson.pesel.uniqueMismatch"));
+            errors.rejectValue("pesel", "SBPerson.pesel.uniqueMismatch",
+                               environment.getProperty("SBPerson.pesel.uniqueMismatch"));
         }
     }
 

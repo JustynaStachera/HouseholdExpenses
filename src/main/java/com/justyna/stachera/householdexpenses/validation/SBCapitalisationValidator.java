@@ -27,7 +27,7 @@ public class SBCapitalisationValidator implements Validator
 {
     private SBCapitalisationDao capitalisationDao;
     private Environment environment;
-
+    
     /**
      * Argument constructor.
      *
@@ -41,7 +41,7 @@ public class SBCapitalisationValidator implements Validator
         this.capitalisationDao = capitalisationDao;
         this.environment = environment;
     }
-
+    
     /**
      * It checks if class to check equals {@link Validator} class type.
      *
@@ -53,7 +53,7 @@ public class SBCapitalisationValidator implements Validator
     {
         return SBCapitalisation.class.isAssignableFrom(clazz);
     }
-
+    
     /**
      * It validates the {@link Object} fields.
      *
@@ -64,18 +64,18 @@ public class SBCapitalisationValidator implements Validator
     public void validate(Object o, Errors errors)
     {
         SBCapitalisation capitalisation = (SBCapitalisation) o;
-
+        
         if (isNameEmpty(capitalisation))
         {
             errors.rejectValue("name", "emptyMismatch.name", environment.getProperty("emptyMismatch.name"));
         }
-
+        
         if (!isNameUnique(capitalisation))
         {
             errors.rejectValue("name", "uniqueMismatch.name", environment.getProperty("uniqueMismatch.name"));
         }
     }
-
+    
     /**
      * It checks if {@link SBCapitalisation} name field is empty.
      *
@@ -86,7 +86,7 @@ public class SBCapitalisationValidator implements Validator
     {
         return capitalisation.getName().isEmpty();
     }
-
+    
     /**
      * It checks if {@link SBCapitalisation} name field is unique.
      *
@@ -102,7 +102,7 @@ public class SBCapitalisationValidator implements Validator
                                                          .filter(b -> b.getId().equals(capitalisation.getId()) &&
                                                                       b.getName().equals(capitalisation.getName()))
                                                          .findFirst();
-
+        
         return capitalisationOptional.isPresent() ||
                !capitalisationNames.stream().anyMatch(capitalisation.getName()::equalsIgnoreCase);
     }

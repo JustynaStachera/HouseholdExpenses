@@ -272,7 +272,8 @@ public class SBExpenseJoinedValidator implements Validator
 
             boolean isValid = expenseList.isEmpty() ||
                               expenseList.stream().anyMatch(p -> p.getDaysLeft().equals(expenseJoined.getDaysLeft()) &&
-                                                                 p.getExpenseCategory().getName().equals(expenseCategory.getName()));
+                                                                 p.getExpenseCategory().getName()
+                                                                  .equals(expenseCategory.getName()));
 
             if (!isValid)
             {
@@ -377,10 +378,10 @@ public class SBExpenseJoinedValidator implements Validator
     }
 
     /**
-     * It checks if {@link SBExpenseJoined} kindOfOperation name field is "DISPOSABLE" in English.
+     * It checks if {@link SBExpenseJoined} kindOfOperation name field is "disposable" in English.
      *
      * @param expenseJoined Object to check.
-     * @return True if kindOfOperation name field is "DISPOSABLE" in English, otherwise false.
+     * @return True if kindOfOperation name field is "disposable" in English, otherwise false.
      */
     private boolean isKindOfOperationDisposable(SBExpenseJoined expenseJoined)
     {
@@ -391,10 +392,10 @@ public class SBExpenseJoinedValidator implements Validator
     }
 
     /**
-     * It checks if {@link SBExpenseJoined} kindOfOperation name field is "PERIODIC" in English.
+     * It checks if {@link SBExpenseJoined} kindOfOperation name field is "periodic" in English.
      *
      * @param expenseJoined Object to check.
-     * @return True if kindOfOperation name field is "PERIODIC" in English, otherwise false.
+     * @return True if kindOfOperation name field is "periodic" in English, otherwise false.
      */
     private boolean isKindOfOperationPeriodic(SBExpenseJoined expenseJoined)
     {

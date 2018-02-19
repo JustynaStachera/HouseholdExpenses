@@ -23,7 +23,7 @@ public class SBLoanJoinedValidator implements Validator
 {
     private SBKindOfLoanDao kindOfLoanDao;
     private Environment environment;
-
+    
     /**
      * Argument constructor.
      *
@@ -36,7 +36,7 @@ public class SBLoanJoinedValidator implements Validator
         this.kindOfLoanDao = kindOfLoanDao;
         this.environment = environment;
     }
-
+    
     /**
      * It checks if class to check equals {@link Validator} class type.
      *
@@ -48,7 +48,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return SBLoanJoinedValidator.class.isAssignableFrom(clazz);
     }
-
+    
     /**
      * It validates the {@link Object} fields.
      *
@@ -59,35 +59,41 @@ public class SBLoanJoinedValidator implements Validator
     public void validate(Object o, Errors errors)
     {
         SBLoanJoined loanJoined = (SBLoanJoined) o;
-
+        
         if (isInitialAmountNull(loanJoined))
         {
-            errors.rejectValue("initialAmount", "SBLoanJoined.initialAmount.nullMismatch", environment.getProperty("SBLoanJoined.initialAmount.nullMismatch"));
+            errors.rejectValue("initialAmount", "SBLoanJoined.initialAmount.nullMismatch",
+                               environment.getProperty("SBLoanJoined.initialAmount.nullMismatch"));
         }
         else if (!isInitialAmountMin(loanJoined))
         {
-            errors.rejectValue("initialAmount", "SBLoanJoined.initialAmount.minMismatch", environment.getProperty("SBLoanJoined.initialAmount.minMismatch"));
+            errors.rejectValue("initialAmount", "SBLoanJoined.initialAmount.minMismatch",
+                               environment.getProperty("SBLoanJoined.initialAmount.minMismatch"));
         }
-
+        
         if (isBeginDateNull(loanJoined))
         {
-            errors.rejectValue("beginDate", "SBLoanJoined.beginDate.nullMismatch", environment.getProperty("SBLoanJoined.beginDate.nullMismatch"));
+            errors.rejectValue("beginDate", "SBLoanJoined.beginDate.nullMismatch",
+                               environment.getProperty("SBLoanJoined.beginDate.nullMismatch"));
         }
-
+        
         if (isPaidUpMonthsNull(loanJoined))
         {
-            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.nullMismatch", environment.getProperty("SBLoanJoined.paidUpMonths.nullMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.nullMismatch",
+                               environment.getProperty("SBLoanJoined.paidUpMonths.nullMismatch"));
         }
         else if (!isPaidUpMonthsMin(loanJoined))
         {
-            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.minMismatch", environment.getProperty("SBLoanJoined.paidUpMonths.minMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.minMismatch",
+                               environment.getProperty("SBLoanJoined.paidUpMonths.minMismatch"));
         }
         else if (!isPaidUpMonthsMax(loanJoined))
         {
-            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.maxMismatch", environment.getProperty("SBLoanJoined.paidUpMonths.maxMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoanJoined.paidUpMonths.maxMismatch",
+                               environment.getProperty("SBLoanJoined.paidUpMonths.maxMismatch"));
         }
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} initialAmount is NULL.
      *
@@ -98,7 +104,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return loanJoined.getInitialAmount() == null;
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} initialAmount is greater than 0.
      *
@@ -109,7 +115,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return loanJoined.getInitialAmount() != null && loanJoined.getInitialAmount() >= 0;
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} beginDate is NULL.
      *
@@ -120,7 +126,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return loanJoined.getBeginDate() == null;
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} paidUpMonths is NULL.
      *
@@ -131,7 +137,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return loanJoined.getPaidUpMonths() == null;
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} paidUpMonths is greater than 0.
      *
@@ -142,7 +148,7 @@ public class SBLoanJoinedValidator implements Validator
     {
         return loanJoined.getPaidUpMonths() != null && loanJoined.getPaidUpMonths() >= 0;
     }
-
+    
     /**
      * It checks if {@link SBLoanJoined} paidUpMonths is equal or less than durationTime.
      *

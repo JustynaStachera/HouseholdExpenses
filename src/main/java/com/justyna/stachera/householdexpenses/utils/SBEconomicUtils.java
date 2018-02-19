@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains economic utils to generate data.
  */
 public class SBEconomicUtils
@@ -30,10 +30,9 @@ public class SBEconomicUtils
     public final static Double SECOND_TAX_THRESHOLD = 32.0;
 
     /**
-     *
      * It calculates loan fields like month payment, payoff sum and interests.
      * It also checks if loan is active.
-     *
+     * <p>
      * We assume that we have the capitalisations: monthly, quarterly.
      *
      * @param loan Loan to calculate.
@@ -103,7 +102,7 @@ public class SBEconomicUtils
      * It returns tax to pay.
      *
      * @param taxPerCent Tax per cent.
-     * @param amount Earnings.
+     * @param amount     Earnings.
      * @return Tax to pay.
      */
     public static Double getAmountPayable(Double taxPerCent, Double amount)

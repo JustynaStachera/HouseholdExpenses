@@ -69,7 +69,7 @@ public class SBLoan
     private Integer paidUpMonths;
 
     /**
-     *  If loan is active.
+     * If loan is active.
      */
     private Boolean isActive;
 

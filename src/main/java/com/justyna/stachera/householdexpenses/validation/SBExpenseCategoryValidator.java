@@ -27,7 +27,7 @@ public class SBExpenseCategoryValidator implements Validator
 {
     private SBExpenseCategoryDao expenseCategoryDao;
     private Environment environment;
-
+    
     /**
      * Argument constructor.
      *
@@ -40,7 +40,7 @@ public class SBExpenseCategoryValidator implements Validator
         this.expenseCategoryDao = expenseCategoryDao;
         this.environment = environment;
     }
-
+    
     /**
      * It checks if class to check equals {@link Validator} class type.
      *
@@ -52,7 +52,7 @@ public class SBExpenseCategoryValidator implements Validator
     {
         return SBExpenseCategory.class.isAssignableFrom(clazz);
     }
-
+    
     /**
      * It validates the {@link Object} fields.
      *
@@ -63,18 +63,18 @@ public class SBExpenseCategoryValidator implements Validator
     public void validate(Object o, Errors errors)
     {
         SBExpenseCategory expenseCategory = (SBExpenseCategory) o;
-
+        
         if (isNameEmpty(expenseCategory))
         {
             errors.rejectValue("name", "emptyMismatch.name", environment.getProperty("emptyMismatch.name"));
         }
-
+        
         if (!isNameUnique(expenseCategory))
         {
             errors.rejectValue("name", "uniqueMismatch.name", environment.getProperty("uniqueMismatch.name"));
         }
     }
-
+    
     /**
      * It checks if {@link SBExpenseCategory} name field is empty.
      *
@@ -85,7 +85,7 @@ public class SBExpenseCategoryValidator implements Validator
     {
         return expenseCategory.getName().isEmpty();
     }
-
+    
     /**
      * It checks if {@link SBExpenseCategory} name field is unique.
      *
@@ -101,7 +101,7 @@ public class SBExpenseCategoryValidator implements Validator
                                                             .filter(b -> b.getId().equals(expenseCategory.getId()) &&
                                                                          b.getName().equals(expenseCategory.getName()))
                                                             .findFirst();
-
+        
         return expenseCategoryOptional.isPresent() ||
                !expenseCategoryNames.stream().anyMatch(expenseCategory.getName()::equalsIgnoreCase);
     }

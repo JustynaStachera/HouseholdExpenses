@@ -8,14 +8,13 @@ import com.justyna.stachera.householdexpenses.domain.main.SBUser;
 import com.justyna.stachera.householdexpenses.utils.SBEconomicUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains implemented methods from {@link SBLoan}JoinedService interface.
  */
 @Service
@@ -27,7 +26,7 @@ public class SBLoanJoinedImpl implements SBLoanJoinedService
     /**
      * Argument constructor.
      *
-     * @param loanDao It provides methods related with 'sbloan' table from database.
+     * @param loanDao       It provides methods related with 'sbloan' table from database.
      * @param kindOfLoanDao It provides methods related with 'sbkind_of_loan' table from database.
      */
     @Autowired

@@ -23,7 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SBWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     private SBUserDetailsService userDetailsService;
-
+    
     /**
      * Argument constructor.
      *
@@ -34,7 +34,7 @@ public class SBWebSecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         this.userDetailsService = userDetailsService;
     }
-
+    
     /**
      * It provides global configurations.
      *
@@ -46,7 +46,7 @@ public class SBWebSecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         authenticationManagerBuilder.userDetailsService(userDetailsService);
     }
-
+    
     /**
      * It sets the access rights for users depending on the role.
      *
@@ -59,28 +59,36 @@ public class SBWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         httpSecurity
                 .authorizeRequests()
                 // Help
-                .antMatchers("/help").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A", "USER_RM", "USER_R")
+                .antMatchers("/help").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A",
+                                                 "USER_RM", "USER_R")
                 // Expenses
-                .antMatchers("/expenses/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A", "USER_RM", "USER_R")
-                .antMatchers("/expenses/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A")
-                .antMatchers("/expenses/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
-                .antMatchers("/expenses/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/EXPENSES/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                               "USER_A", "USER_RM", "USER_R")
+                .antMatchers("/EXPENSES/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                         "USER_A")
+                .antMatchers("/EXPENSES/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/EXPENSES/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
                 // Loans
-                .antMatchers("/loans/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A", "USER_RM", "USER_R")
-                .antMatchers("/loans/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A")
-                .antMatchers("/loans/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
-                .antMatchers("/loans/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/LOANS/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                            "USER_A", "USER_RM", "USER_R")
+                .antMatchers("/LOANS/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                      "USER_A")
+                .antMatchers("/LOANS/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/LOANS/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
                 // Taxes
-                .antMatchers("/taxes/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A", "USER_RM", "USER_R")
-                .antMatchers("/taxes/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM", "USER_A")
-                .antMatchers("/taxes/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
-                .antMatchers("/taxes/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/TAXES/selectAll").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                            "USER_A", "USER_RM", "USER_R")
+                .antMatchers("/TAXES/add").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_AM",
+                                                      "USER_A")
+                .antMatchers("/TAXES/modify/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
+                .antMatchers("/TAXES/remove/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AM", "USER_RM")
                 // Statistics
-                .antMatchers("/statistics/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_RM", "USER_R")
+                .antMatchers("/statistics/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "USER_ARM", "USER_AR", "USER_RM",
+                                                          "USER_R")
                 // Edit
                 .antMatchers("/edit/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
                 // Registration
-                .antMatchers("/registration").permitAll()
+                .antMatchers("/REGISTRATION").permitAll()
                 // Others
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll().anyRequest().permitAll()
                 .anyRequest().authenticated()

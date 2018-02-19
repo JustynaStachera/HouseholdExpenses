@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Enum which contains values needed to sort 'sbkind_of_loan' records and viewing notifications on drop list.
  */
 public enum SBKindOfLoanFields
@@ -25,10 +25,10 @@ public enum SBKindOfLoanFields
     durationTime_desc("CZAS TRWANIA", "malejąco"),
     percent_asc("PROCENT", "rosnąco"),
     percent_desc("PROCENT", "malejąco");
-
+    
     private String value;
     private String order;
-
+    
     /**
      * Argument constructor.
      *
@@ -40,7 +40,7 @@ public enum SBKindOfLoanFields
         this.value = value;
         this.order = order;
     }
-
+    
     /**
      * It returns field name in Polish.
      *
@@ -50,14 +50,14 @@ public enum SBKindOfLoanFields
     {
         return value;
     }
-
+    
     /**
      * It returns order name in Polish.
      *
      * @return Order name in Polish.
      */
     public String getOrder() { return order; }
-
+    
     /**
      * It returns proper ENUM.
      *
@@ -68,7 +68,7 @@ public enum SBKindOfLoanFields
     public static String getEnum(String value, String order)
     {
         List<SBKindOfLoanFields> kindOfLoanFields = Arrays.asList(SBKindOfLoanFields.values());
-
+        
         return kindOfLoanFields
                 .stream()
                 .filter(v -> v.getValue().equalsIgnoreCase(value))
@@ -77,7 +77,7 @@ public enum SBKindOfLoanFields
                 .get()
                 .toString();
     }
-
+    
     /**
      * It returns ENUM list.
      *
@@ -86,12 +86,12 @@ public enum SBKindOfLoanFields
     public static List<String> getList()
     {
         List<String> fieldNames = new ArrayList<>();
-
+        
         for (SBKindOfLoanFields s : SBKindOfLoanFields.values())
         {
             fieldNames.add(s.getValue() + " - " + s.getOrder());
         }
-
+        
         return fieldNames;
     }
 }

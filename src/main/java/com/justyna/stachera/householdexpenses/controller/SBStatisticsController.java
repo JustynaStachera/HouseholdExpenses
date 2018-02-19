@@ -35,7 +35,9 @@ public class SBStatisticsController implements SBWebsitesAndMessages
     private SBTaxDao taxDao;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param userDao    It provides methods related with 'sbuser' table from database.
      * @param expenseDao It provides methods related with 'sbexpense' table from database.
@@ -72,7 +74,7 @@ public class SBStatisticsController implements SBWebsitesAndMessages
         model.addAttribute("isReadOnly", logInUser.getIsReadOnly());
         model.addAttribute("isModifyOnly", logInUser.getIsModifyOnly());
 
-        return statisticsMenu;
+        return STATISTICS_MENU;
     }
 
     /**
@@ -109,7 +111,7 @@ public class SBStatisticsController implements SBWebsitesAndMessages
         model.addAttribute("expenseCategories", SBStatisticsUtils.getExpenseCategories());
         model.addAttribute("expenseCategoryPricesSum", SBStatisticsUtils.getExpenseCategoryPricesSum());
 
-        return statisticsExpenses;
+        return STATISTICS_EXPENSES;
     }
 
     /**
@@ -140,7 +142,7 @@ public class SBStatisticsController implements SBWebsitesAndMessages
         model.addAttribute("loanUsers", SBStatisticsUtils.getLoanUsers());
         model.addAttribute("loanPayoffSum", SBStatisticsUtils.getLoanPayoffSum());
 
-        return statisticsLoans;
+        return STATISTICS_LOANS;
     }
 
     /**
@@ -177,6 +179,6 @@ public class SBStatisticsController implements SBWebsitesAndMessages
         model.addAttribute("taxAmountPayableUsers", SBStatisticsUtils.getTaxAmountPayableUsers());
         model.addAttribute("taxAmountPayableSum", SBStatisticsUtils.getTaxAmountPayableSum());
 
-        return statisticsTaxes;
+        return STATISTICS_TAXES;
     }
 }

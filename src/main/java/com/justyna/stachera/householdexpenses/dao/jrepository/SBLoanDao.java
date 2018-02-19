@@ -23,8 +23,8 @@ import java.util.List;
 public interface SBLoanDao extends JpaRepository<SBLoan, Long>
 {
     List<SBLoan> findAllByUser(SBUser user);
-
+    
     List<SBLoan> findAllByKindOfLoan(SBKindOfLoan kindOfLoan);
-
+    
     List<SBLoan> findAllByKindOfLoan(List<SBKindOfLoan> kindsOfLoan);
 }

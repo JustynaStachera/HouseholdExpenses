@@ -58,29 +58,35 @@ public class SBLoanValidator implements Validator
 
         if (isInitialAmountNull(loan))
         {
-            errors.rejectValue("initialAmount", "SBLoan.initialAmount.nullMismatch", environment.getProperty("SBLoan.initialAmount.nullMismatch"));
+            errors.rejectValue("initialAmount", "SBLoan.initialAmount.nullMismatch",
+                               environment.getProperty("SBLoan.initialAmount.nullMismatch"));
         }
         else if (!isInitialAmountMin(loan))
         {
-            errors.rejectValue("initialAmount", "SBLoan.initialAmount.minMismatch", environment.getProperty("SBLoan.initialAmount.minMismatch"));
+            errors.rejectValue("initialAmount", "SBLoan.initialAmount.minMismatch",
+                               environment.getProperty("SBLoan.initialAmount.minMismatch"));
         }
 
         if (isBeginDateNull(loan))
         {
-            errors.rejectValue("beginDate", "SBLoan.beginDate.nullMismatch", environment.getProperty("SBLoan.beginDate.nullMismatch"));
+            errors.rejectValue("beginDate", "SBLoan.beginDate.nullMismatch",
+                               environment.getProperty("SBLoan.beginDate.nullMismatch"));
         }
 
         if (isPaidUpMonthsNull(loan))
         {
-            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.nullMismatch", environment.getProperty("SBLoan.paidUpMonths.nullMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.nullMismatch",
+                               environment.getProperty("SBLoan.paidUpMonths.nullMismatch"));
         }
         else if (!isPaidUpMonthsMin(loan))
         {
-            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.minMismatch", environment.getProperty("SBLoan.paidUpMonths.minMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.minMismatch",
+                               environment.getProperty("SBLoan.paidUpMonths.minMismatch"));
         }
         else if (!isPaidUpMonthsMax(loan))
         {
-            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.maxMismatch", environment.getProperty("SBLoan.paidUpMonths.maxMismatch"));
+            errors.rejectValue("paidUpMonths", "SBLoan.paidUpMonths.maxMismatch",
+                               environment.getProperty("SBLoan.paidUpMonths.maxMismatch"));
         }
     }
 

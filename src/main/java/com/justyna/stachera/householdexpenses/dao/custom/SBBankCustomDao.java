@@ -23,7 +23,7 @@ public interface SBBankCustomDao
      * @param bank {@link SBBank} object to modify.
      */
     void modify(SBBank bank);
-
+    
     /**
      * It sorts 'sbbank' table records by column name.
      *

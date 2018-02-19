@@ -29,9 +29,8 @@ public class SBKindOfLoanValidator implements Validator
     private Environment environment;
 
     /**
-     *
      * @param kindOfLoanDao It provides methods related with 'sbkind_of_loan' table from database.
-     * @param environment It provides methods to get the error messages from messages.properties file.
+     * @param environment   It provides methods to get the error messages from messages.properties file.
      */
     @Autowired
     public SBKindOfLoanValidator(SBKindOfLoanDao kindOfLoanDao, Environment environment)
@@ -85,17 +84,20 @@ public class SBKindOfLoanValidator implements Validator
 
         if (isDurationTimeNull(kindOfLoan))
         {
-            errors.rejectValue("durationTime", "SBKindOfLoan.durationTime.nullMismatch", environment.getProperty("SBKindOfLoan.durationTime.nullMismatch"));
+            errors.rejectValue("durationTime", "SBKindOfLoan.durationTime.nullMismatch",
+                               environment.getProperty("SBKindOfLoan.durationTime.nullMismatch"));
         }
 
         if (!isDurationTimeNull(kindOfLoan) && !isDurationTimeValid(kindOfLoan))
         {
-            errors.rejectValue("durationTime", "SBKindOfLoan.durationTime.rangeMismatch", environment.getProperty("SBKindOfLoan.durationTime.rangeMismatch"));
+            errors.rejectValue("durationTime", "SBKindOfLoan.durationTime.rangeMismatch",
+                               environment.getProperty("SBKindOfLoan.durationTime.rangeMismatch"));
         }
 
         if (isCapitalisationNull(kindOfLoan))
         {
-            errors.rejectValue("capitalisationId", "defaultNullMismatch", environment.getProperty("defaultNullMismatch"));
+            errors.rejectValue("capitalisationId", "defaultNullMismatch",
+                               environment.getProperty("defaultNullMismatch"));
         }
 
         if (isBankNull(kindOfLoan))

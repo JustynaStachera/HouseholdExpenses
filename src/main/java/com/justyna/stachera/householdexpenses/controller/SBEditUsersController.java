@@ -53,7 +53,9 @@ public class SBEditUsersController implements SBWebsitesAndMessages
     private SBUserPersonValidator personValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param personDao       It provides methods related with 'sbperson' table from database.
      * @param userDao         It provides methods related with 'sbuser' table from database.
@@ -117,7 +119,7 @@ public class SBEditUsersController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditUsers);
+        modelAndView.setViewName(MENU_EDIT_USERS);
 
         modelAndView.addObject("users", userCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("userFields", SBUserFields.getList());
@@ -221,7 +223,7 @@ public class SBEditUsersController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditUsersAdd);
+        modelAndView.setViewName(MENU_EDIT_USERS_ADD);
 
         modelAndView.addObject("user", user);
 
@@ -333,7 +335,7 @@ public class SBEditUsersController implements SBWebsitesAndMessages
         model.addAttribute("userAuthorizationError", authorizationError);
         model.addAttribute("userErrors", userErrors.getList());
 
-        return menuEditUsersModify;
+        return MENU_EDIT_USERS_MODIFY;
     }
 
     /**
@@ -389,7 +391,8 @@ public class SBEditUsersController implements SBWebsitesAndMessages
                     .collect(Collectors.toList());
 
             redirectAttributes.addFlashAttribute("userErrors",
-                                                 new SBList(SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
+                                                 new SBList(
+                                                         SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
 
             return "redirect:/edit/users/modify/" + user.getId();
         }
@@ -471,7 +474,7 @@ public class SBEditUsersController implements SBWebsitesAndMessages
 
         model.addAttribute("userErrors", userErrors.getList());
 
-        return menuEditUsersPassword;
+        return MENU_EDIT_USERS_PASSWORD;
     }
 
     /**
@@ -515,7 +518,8 @@ public class SBEditUsersController implements SBWebsitesAndMessages
                     .collect(Collectors.toList());
 
             redirectAttributes.addFlashAttribute("userErrors",
-                                                 new SBList(SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
+                                                 new SBList(
+                                                         SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
 
             return "redirect:/edit/users/password/" + user.getId();
         }

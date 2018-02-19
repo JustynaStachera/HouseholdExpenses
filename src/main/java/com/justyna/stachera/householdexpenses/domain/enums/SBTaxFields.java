@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Enum which contains values needed to sort 'sbtax' records and viewing notifications on drop list.
  */
 public enum SBTaxFields
@@ -27,10 +27,10 @@ public enum SBTaxFields
     taxRefund_desc("ZWROT PODATKU", "malejąco"),
     isPaid_asc("CZY OPŁACONE", "rosnąco"),
     isPaid_desc("CZY OPŁACONE", "malejąco");
-
+    
     private String value;
     private String order;
-
+    
     /**
      * Argument constructor.
      *
@@ -42,7 +42,7 @@ public enum SBTaxFields
         this.value = value;
         this.order = order;
     }
-
+    
     /**
      * It returns field name in Polish.
      *
@@ -52,14 +52,14 @@ public enum SBTaxFields
     {
         return this.value;
     }
-
+    
     /**
      * It returns order name in Polish.
      *
      * @return Order name in Polish.
      */
     public String getOrder() { return this.order; }
-
+    
     /**
      * It returns proper ENUM.
      *
@@ -77,7 +77,7 @@ public enum SBTaxFields
                      .get()
                      .toString();
     }
-
+    
     /**
      * It returns ENUM list.
      *
@@ -86,12 +86,12 @@ public enum SBTaxFields
     public static List<String> getList()
     {
         List<String> fieldNames = new ArrayList<>();
-
+        
         for (SBTaxFields s : SBTaxFields.values())
         {
             fieldNames.add(s.getValue() + " - " + s.getOrder());
         }
-
+        
         return fieldNames;
     }
 }

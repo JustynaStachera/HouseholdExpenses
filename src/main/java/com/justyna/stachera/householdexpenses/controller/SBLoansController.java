@@ -56,7 +56,9 @@ public class SBLoansController implements SBWebsitesAndMessages
     private SBLoanJoinedValidator loanJoinedValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param userDao             It provides methods related with 'sbuser' table from database.
      * @param loanDao             It provides methods related with 'sbloan' table from database.
@@ -118,7 +120,7 @@ public class SBLoansController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(loans);
+        modelAndView.setViewName(LOANS);
 
         List<SBLoan> sortedLoans;
 
@@ -241,7 +243,7 @@ public class SBLoansController implements SBWebsitesAndMessages
 
         model.addAttribute("loanErrors", loanErrors.getList());
 
-        return loansAdd;
+        return LOANS_ADD;
     }
 
     /**
@@ -346,7 +348,7 @@ public class SBLoansController implements SBWebsitesAndMessages
 
         model.addAttribute("loanErrors", loanErrors.getList());
 
-        return loansModify;
+        return LOANS_MODIFY;
     }
 
     /**
@@ -404,7 +406,7 @@ public class SBLoansController implements SBWebsitesAndMessages
             redirectAttributes.addFlashAttribute("loanErrors",
                                                  new SBList(SBCustomUtils.convertStringListToSBFieldList(errors)));
 
-            return "redirect:/loans/modify/" + loan.getId();
+            return "redirect:/LOANS/modify/" + loan.getId();
         }
 
         /* ********************************************************************************** */
@@ -443,11 +445,11 @@ public class SBLoansController implements SBWebsitesAndMessages
 
         model.addAttribute("kindOfLoan", loanDao.getOne(id).getKindOfLoan());
 
-        return loansDetails;
+        return LOANS_DETAILS;
     }
 
     /**
-     * A method is used to sort a loan list from '/loans/selectAll' website.
+     * A method is used to sort a loan list from '/LOANS/selectAll' website.
      *
      * @param loanField          A selected option from a sort bar.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation

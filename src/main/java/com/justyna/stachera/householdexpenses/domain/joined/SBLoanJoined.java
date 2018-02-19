@@ -8,7 +8,7 @@ import java.sql.Date;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * POJO class which combines {@link com.justyna.stachera.householdexpenses.domain.main.SBLoan} and
  * {@link com.justyna.stachera.householdexpenses.domain.main.SBKindOfLoan} classes due to IDs.
  * {@link Lombok} library provides set/get methods and argument/non-argument constructors.

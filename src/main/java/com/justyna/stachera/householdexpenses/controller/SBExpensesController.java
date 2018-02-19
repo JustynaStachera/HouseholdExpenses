@@ -57,7 +57,9 @@ public class SBExpensesController implements SBWebsitesAndMessages
     private SBExpenseJoinedValidator expenseJoinedValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param expenseDao             It provides methods related with 'sbexpense' table from database.
      * @param expenseCustomDao       It provides extra methods related with 'sbexpense' table from database.
@@ -114,7 +116,8 @@ public class SBExpensesController implements SBWebsitesAndMessages
                                              @ModelAttribute("expenseModifyInfo") SBField modifyInfo,
                                              @ModelAttribute("expenseRemoveInfo") SBField removeInfo,
                                              @ModelAttribute("isExpenseUserIdInvalid") SBBoolean isExpenseUserIdInvalid,
-                                             @ModelAttribute("isExpensePeriodicInvalid") SBBoolean isExpensePeriodicInvalid,
+                                             @ModelAttribute("isExpensePeriodicInvalid")
+                                                     SBBoolean isExpensePeriodicInvalid,
                                              ModelAndView modelAndView)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -129,7 +132,7 @@ public class SBExpensesController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(expenses);
+        modelAndView.setViewName(EXPENSES);
 
         List<SBExpense> sortedExpenses;
 
@@ -164,7 +167,8 @@ public class SBExpensesController implements SBWebsitesAndMessages
         modelAndView.addObject("kindsOfOperationSize", kindOfOperationDao.findAll().size());
         modelAndView.addObject("expenseCategoriesSize", expenseCategoryDao.findAll().size());
 
-        List<SBMessage> expenseMessages = SBCustomUtils.expenseMessages(logInUser, userDao.findAll(), expenseDao.findAll());
+        List<SBMessage> expenseMessages = SBCustomUtils.expenseMessages(logInUser, userDao.findAll(),
+                                                                        expenseDao.findAll());
 
         modelAndView.addObject("isExpenseMessagesEmpty", expenseMessages.isEmpty());
         modelAndView.addObject("expenseMessages", expenseMessages);
@@ -271,7 +275,7 @@ public class SBExpensesController implements SBWebsitesAndMessages
 
         model.addAttribute("expenseErrors", expenseErrors.getList());
 
-        return expensesAdd;
+        return EXPENSES_ADD;
     }
 
     /**
@@ -373,11 +377,12 @@ public class SBExpensesController implements SBWebsitesAndMessages
 
         model.addAttribute("expenseErrors", expenseErrors.getList());
 
-        return expensesModify;
+        return EXPENSES_MODIFY;
     }
 
     /**
-     * A method is used to modify a expense record. It validates {@link com.justyna.stachera.householdexpenses.domain.main.SBBank} object and modifies it.
+     * A method is used to modify a expense record. It validates
+     * {@link com.justyna.stachera.householdexpenses.domain.main.SBBank} object and modifies it.
      *
      * @param expense            An object where the data from a form is located.
      * @param bindingResult      An interface BindingResult implementation which checks {@link SBExpense} object.
@@ -435,7 +440,7 @@ public class SBExpensesController implements SBWebsitesAndMessages
             redirectAttributes.addFlashAttribute("expenseErrors",
                                                  new SBList(SBCustomUtils.convertStringListToSBFieldList(errors)));
 
-            return "redirect:/expenses/modify/" + expense.getId();
+            return "redirect:/EXPENSES/modify/" + expense.getId();
         }
 
         /* ********************************************************************************** */

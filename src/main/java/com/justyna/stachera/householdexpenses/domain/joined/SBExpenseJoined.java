@@ -8,7 +8,7 @@ import java.sql.Date;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * POJO class which combines {@link com.justyna.stachera.householdexpenses.domain.main.SBFormOfPayment},
  * {@link com.justyna.stachera.householdexpenses.domain.main.SBKindOfOperation},
  * {@link com.justyna.stachera.householdexpenses.domain.main.SBExpenseCategory} and

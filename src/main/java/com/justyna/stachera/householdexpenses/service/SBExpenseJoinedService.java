@@ -23,7 +23,7 @@ public interface SBExpenseJoinedService
      *
      * @param expenseJoined It helps to add {@link com.justyna.stachera.householdexpenses.domain.main.SBExpense} object
      *                      to database as 'sbexpense' record.
-     * @param user Logged in user.
+     * @param user          Logged in user.
      */
     void addExpenseJoined(SBExpenseJoined expenseJoined, SBUser user);
 }

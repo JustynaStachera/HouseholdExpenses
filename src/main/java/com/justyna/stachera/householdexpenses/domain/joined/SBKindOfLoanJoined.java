@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * POJO class which combines {@link com.justyna.stachera.householdexpenses.domain.main.SBFormOfPayment},
  * {@link com.justyna.stachera.householdexpenses.domain.main.SBBank},
  * {@link com.justyna.stachera.householdexpenses.domain.main.SBCapitalisation} and

@@ -43,7 +43,9 @@ public class SBForecastingController implements SBWebsitesAndMessages
     private SBKindOfOperationDao kindOfOperationDao;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param userDao            It provides methods related with 'sbuser' table from database.
      * @param expenseDao         It provides methods related with 'sbexpense' table from database.
@@ -90,7 +92,7 @@ public class SBForecastingController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(forecasting);
+        modelAndView.setViewName(FORECASTING);
 
         List<SBForecasting> forecastingList =
                 SBCustomUtils.createForecasting(logInUser, userDao.findAll(), expenseDao.findAll(), chosenDate);
@@ -98,7 +100,8 @@ public class SBForecastingController implements SBWebsitesAndMessages
         modelAndView.addObject("forecastingList", forecastingList);
         modelAndView.addObject("forecastingListSize", forecastingList.size());
         modelAndView.addObject("forecastingSum",
-                               SBCustomUtils.round(forecastingList.stream().mapToDouble(SBForecasting::getPrice).sum()));
+                               SBCustomUtils
+                                       .round(forecastingList.stream().mapToDouble(SBForecasting::getPrice).sum()));
         modelAndView.addObject("chosenDate", chosenDate);
 
         modelAndView.addObject("formsOfPaymentSize", formOfPaymentDao.findAll().size());

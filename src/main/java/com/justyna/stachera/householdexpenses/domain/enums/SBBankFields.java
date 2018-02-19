@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Enum which contains values needed to sort 'sbbank' records and viewing notifications on drop list.
  */
 public enum SBBankFields
@@ -17,10 +17,10 @@ public enum SBBankFields
     id_desc("ID", "malejąco"),
     name_asc("NAZWA", "rosnąco"),
     name_desc("NAZWA", "malejąco");
-
+    
     private String value;
     private String order;
-
+    
     /**
      * Argument constructor.
      *
@@ -32,7 +32,7 @@ public enum SBBankFields
         this.value = value;
         this.order = order;
     }
-
+    
     /**
      * It returns field name in Polish.
      *
@@ -42,14 +42,14 @@ public enum SBBankFields
     {
         return this.value;
     }
-
+    
     /**
      * It returns order name in Polish.
      *
      * @return Order name in Polish.
      */
     public String getOrder() { return this.order; }
-
+    
     /**
      * It returns proper ENUM.
      *
@@ -67,7 +67,7 @@ public enum SBBankFields
                      .get()
                      .toString();
     }
-
+    
     /**
      * It returns ENUM list.
      *
@@ -76,12 +76,12 @@ public enum SBBankFields
     public static List<String> getList()
     {
         List<String> fieldNames = new ArrayList<>();
-
+        
         for (SBBankFields s : SBBankFields.values())
         {
             fieldNames.add(s.getValue() + " - " + s.getOrder());
         }
-
+        
         return fieldNames;
     }
 }

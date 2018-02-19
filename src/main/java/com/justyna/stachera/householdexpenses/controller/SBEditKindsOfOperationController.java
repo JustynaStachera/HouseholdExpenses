@@ -50,10 +50,13 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
     private SBKindOfOperationValidator kindOfOperationValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param kindOfOperationDao        It provides methods related with 'sbkind_of_operation' table from database.
-     * @param kindOfOperationsCustomDao It provides extra methods related with 'sbkind_of_operation' table from database.
+     * @param kindOfOperationsCustomDao It provides extra methods related with 'sbkind_of_operation' table from
+     *                                  database.
      * @param expenseDao                It provides methods related with 'sbexpense' table from database.
      * @param userDao                   It provides methods related with 'sbuser' table from database.
      * @param kindOfOperationValidator  It validates {@link SBKindOfOperation} object fields.
@@ -103,7 +106,7 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditKindsOfOperation);
+        modelAndView.setViewName(MENU_EDIT_KINDS_OF_OPERATION);
 
         modelAndView.addObject("kindsOfOperation", kindOfOperationsCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("kindsOfOperationSize", kindOfOperationDao.findAll().size());
@@ -164,7 +167,7 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditKindsOfOperationAdd);
+        modelAndView.setViewName(MENU_EDIT_KINDS_OF_OPERATION_ADD);
 
         modelAndView.addObject("kindOfOperation", kindOfOperation);
 
@@ -178,7 +181,8 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
      * and saves it in database.
      *
      * @param kindOfOperation    An object where the data from a form is located.
-     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfOperation} object.
+     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfOperation}
+     *                           object.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation
      *                           that allows a sending arguments to other methods.
      * @return A value from @{@link RequestMapping} after redirecting.
@@ -237,7 +241,7 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditKindsOfOperationModify);
+        modelAndView.setViewName(MENU_EDIT_KINDS_OF_OPERATION_MODIFY);
 
         modelAndView.addObject("kindOfOperation", kindOfOperationDao.getOne(id));
 
@@ -247,10 +251,12 @@ public class SBEditKindsOfOperationController implements SBWebsitesAndMessages
     }
 
     /**
-     * A method is used to modify a kind of operation record. It validates {@link SBKindOfOperation} object and modifies it.
+     * A method is used to modify a kind of operation record. It validates {@link SBKindOfOperation} object and
+     * modifies it.
      *
      * @param kindOfOperation    An object where the data from a form is located.
-     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfOperation} object.
+     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfOperation}
+     *                           object.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation
      *                           that allows a sending arguments to other methods.
      * @return A value from @{@link RequestMapping} after redirecting.

@@ -25,7 +25,7 @@ public class SBPasswordValidator implements Validator
 {
     private Environment environment;
     private SBUser user;
-
+    
     /**
      * Argument constructor.
      *
@@ -36,7 +36,7 @@ public class SBPasswordValidator implements Validator
     {
         this.environment = environment;
     }
-
+    
     /**
      * It sets logged in user.
      *
@@ -46,7 +46,7 @@ public class SBPasswordValidator implements Validator
     {
         this.user = user;
     }
-
+    
     /**
      * It checks if class to check equals {@link Validator} class type.
      *
@@ -58,7 +58,7 @@ public class SBPasswordValidator implements Validator
     {
         return SBPassword.class.isAssignableFrom(clazz);
     }
-
+    
     /**
      * It validates the {@link Object} fields.
      *
@@ -69,28 +69,32 @@ public class SBPasswordValidator implements Validator
     public void validate(Object o, Errors errors)
     {
         SBPassword password = (SBPassword) o;
-
+        
         if (!isOldPasswordPatternValid(password))
         {
-            errors.rejectValue("oldPassword", "SBPassword.oldPassword.regexMismatch", environment.getProperty("SBPassword.oldPassword.regexMismatch"));
+            errors.rejectValue("oldPassword", "SBPassword.oldPassword.regexMismatch",
+                               environment.getProperty("SBPassword.oldPassword.regexMismatch"));
         }
-
+        
         if (!isNewPasswordPatternValid(password))
         {
-            errors.rejectValue("newPassword", "SBPassword.newPassword.regexMismatch", environment.getProperty("SBPassword.newPassword.regexMismatch"));
+            errors.rejectValue("newPassword", "SBPassword.newPassword.regexMismatch",
+                               environment.getProperty("SBPassword.newPassword.regexMismatch"));
         }
-
+        
         if (!isPasswordsEquals(password, user))
         {
-            errors.rejectValue("oldPassword", "SBPassword.oldPassword.invalidMismatch", environment.getProperty("SBPassword.oldPassword.invalidMismatch"));
+            errors.rejectValue("oldPassword", "SBPassword.oldPassword.invalidMismatch",
+                               environment.getProperty("SBPassword.oldPassword.invalidMismatch"));
         }
-
+        
         if (!isPasswordMatch(password))
         {
-            errors.rejectValue("confirmPassword", "SBPassword.confirmPassword.matchMismatch", environment.getProperty("SBPassword.confirmPassword.matchMismatch"));
+            errors.rejectValue("confirmPassword", "SBPassword.confirmPassword.matchMismatch",
+                               environment.getProperty("SBPassword.confirmPassword.matchMismatch"));
         }
     }
-
+    
     /**
      * It checks if {@link SBPassword} oldPassword pattern is valid.
      *
@@ -101,7 +105,7 @@ public class SBPasswordValidator implements Validator
     {
         return Pattern.matches(".{5,15}", password.getNewPassword());
     }
-
+    
     /**
      * It checks if {@link SBPassword} newPassword pattern is valid.
      *
@@ -112,7 +116,7 @@ public class SBPasswordValidator implements Validator
     {
         return Pattern.matches(".{5,15}", password.getNewPassword());
     }
-
+    
     /**
      * It checks if {@link SBPassword} passwords equal.
      *
@@ -124,9 +128,10 @@ public class SBPasswordValidator implements Validator
     {
         return user.getPassword().equals(password.getOldPassword());
     }
-
+    
     /**
      * It checks if {@link SBPassword} password is correct.
+     *
      * @param password Password to check.
      * @return True if password is correct, otherwise false.
      */

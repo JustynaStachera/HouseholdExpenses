@@ -27,7 +27,8 @@ public class SBInfoController implements SBWebsitesAndMessages
     private SBUserDao userDao;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository}.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository}.
      *
      * @param userDao It provides methods related with {@link SBUser} table from database.
      */
@@ -56,7 +57,7 @@ public class SBInfoController implements SBWebsitesAndMessages
         model.addAttribute("isReadOnly", logInUser.getIsReadOnly());
         model.addAttribute("isModifyOnly", logInUser.getIsModifyOnly());
 
-        return infoAndHelp;
+        return INFO_AND_HELP;
     }
 
     /**
@@ -78,6 +79,6 @@ public class SBInfoController implements SBWebsitesAndMessages
         model.addAttribute("isReadOnly", logInUser.getIsReadOnly());
         model.addAttribute("isModifyOnly", logInUser.getIsModifyOnly());
 
-        return infoAndHelp;
+        return INFO_AND_HELP;
     }
 }

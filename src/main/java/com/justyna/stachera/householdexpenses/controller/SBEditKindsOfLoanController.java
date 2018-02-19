@@ -56,7 +56,9 @@ public class SBEditKindsOfLoanController implements SBWebsitesAndMessages
     private SBKindOfLoanJoinedValidator kindOfLoanJoinedValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param kindOfLoanDao             It provides methods related with 'sbkind_of_loan' table from database.
      * @param kindOfLoanCustomDao       It provides extra methods related with 'sbkind_of_loan' table from database.
@@ -122,7 +124,7 @@ public class SBEditKindsOfLoanController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditKindsOfLoan);
+        modelAndView.setViewName(MENU_EDIT_KINDS_OF_LOAN);
 
         modelAndView.addObject("kindsOfLoan", kindOfLoanCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("kindsOfLoanSize", kindOfLoanDao.findAll().size());
@@ -195,14 +197,16 @@ public class SBEditKindsOfLoanController implements SBWebsitesAndMessages
 
         model.addAttribute("kindOfLoanErrors", kindOfLoanErrors.getList());
 
-        return menuEditKindsOfLoanAdd;
+        return MENU_EDIT_KINDS_OF_LOAN_ADD;
     }
 
     /**
-     * A method is used to add a new kind of loan record. It validates {@link SBKindOfLoan} object and saves it in database.
+     * A method is used to add a new kind of loan record. It validates {@link SBKindOfLoan} object and saves it in
+     * database.
      *
      * @param kindOfLoanJoined   An object where the data from a form is located.
-     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfLoanJoined} object.
+     * @param bindingResult      An interface BindingResult implementation which checks {@link SBKindOfLoanJoined}
+     *                           object.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation
      *                           that allows a sending arguments to other methods.
      * @return A value from @{@link RequestMapping} after redirecting.
@@ -261,7 +265,7 @@ public class SBEditKindsOfLoanController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditKindsOfLoanModify);
+        modelAndView.setViewName(MENU_EDIT_KINDS_OF_LOAN_MODIFY);
 
         modelAndView.addObject("kindOfLoan", kindOfLoanDao.getOne(id));
         modelAndView.addObject("banks", bankDao.findAll());

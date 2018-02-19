@@ -295,18 +295,21 @@ public class SBExpenseValidator implements Validator
 
                             if (expenseDates.contains(checkDate))
                             {
-                                dataValidationMsg = environment.getProperty("SBExpense.dateOfPurchase.firstValidMismatch");
+                                dataValidationMsg = environment.getProperty(
+                                        "SBExpense.dateOfPurchase.firstValidMismatch");
                             }
                             else if (checkDate.compareTo(expenseDates.get(0)) < 0)
                             {
-                                dataValidationMsg = environment.getProperty("SBExpense.dateOfPurchase.secondValidMismatch");
+                                dataValidationMsg = environment.getProperty(
+                                        "SBExpense.dateOfPurchase.secondValidMismatch");
                             }
                             else
                             {
                                 final int DAYS_LEFT = expense.getDaysLeft();
                                 LocalDate beginDate = expenseDates.get(0);
                                 LocalDate endDate = expenseDates.get(expenseDates.size() - 1);
-                                List<List<LocalDate>> schedule = SBCustomUtils.createSchedule(beginDate, endDate, DAYS_LEFT);
+                                List<List<LocalDate>> schedule = SBCustomUtils.createSchedule(beginDate, endDate,
+                                                                                              DAYS_LEFT);
 
                                 if (!SBCustomUtils.isDateUnique(schedule, expenseDates, checkDate))
                                 {
@@ -324,10 +327,10 @@ public class SBExpenseValidator implements Validator
     }
 
     /**
-     * It checks if {@link SBExpense} kindOfOperation name field is 'PERIODIC' in English.
+     * It checks if {@link SBExpense} kindOfOperation name field is 'periodic' in English.
      *
      * @param expense Object to check.
-     * @return True if kindOfOperation name field is 'PERIODIC' in English, otherwise false.
+     * @return True if kindOfOperation name field is 'periodic' in English, otherwise false.
      */
     private boolean isKindOfOperationPeriodic(SBExpense expense)
     {
@@ -338,10 +341,10 @@ public class SBExpenseValidator implements Validator
     }
 
     /**
-     * It checks if {@link SBExpense} kindOfOperation name field is 'DISPOSABLE' in English.
+     * It checks if {@link SBExpense} kindOfOperation name field is 'disposable' in English.
      *
      * @param expense Object to check.
-     * @return True if kindOfOperation name field is 'DISPOSABLE' in English, otherwise false.
+     * @return True if kindOfOperation name field is 'disposable' in English, otherwise false.
      */
     private boolean isKindOfOperationDisposable(SBExpense expense)
     {

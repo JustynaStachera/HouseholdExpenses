@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains statistics utils to generate the charts.
  */
 public class SBStatisticsUtils
@@ -29,7 +29,7 @@ public class SBStatisticsUtils
     /**
      * It creates expense map.
      *
-     * @param users User list.
+     * @param users    User list.
      * @param expenses Expense list.
      * @return Generated map with user expenses data.
      */
@@ -41,7 +41,8 @@ public class SBStatisticsUtils
         {
             String key = user.getPerson().getName() + " " + user.getPerson().getSurname();
             Double value = SBCustomUtils.round(expenses.stream()
-                                                       .filter(p -> p.getUser().getUsername().equals(user.getUsername()))
+                                                       .filter(p -> p.getUser().getUsername()
+                                                                     .equals(user.getUsername()))
                                                        .mapToDouble(SBExpense::getPrice).sum());
 
             expenseData.put(key, value);
@@ -161,7 +162,7 @@ public class SBStatisticsUtils
      *
      * @param users User list.
      * @param loans Loan list.
-     * @return Generated map with user loans data.
+     * @return Generated map with user LOANS data.
      */
     public static Map<String, Double> createLoanMap(List<SBUser> users, List<SBLoan> loans)
     {

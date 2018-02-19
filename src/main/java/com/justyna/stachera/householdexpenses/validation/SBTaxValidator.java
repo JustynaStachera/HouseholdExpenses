@@ -69,25 +69,30 @@ public class SBTaxValidator implements Validator
 
         if (isAmountNull(tax))
         {
-            errors.rejectValue("amount", "SBTax.amount.nullMismatch", environment.getProperty("SBTax.amount.nullMismatch"));
+            errors.rejectValue("amount", "SBTax.amount.nullMismatch",
+                               environment.getProperty("SBTax.amount.nullMismatch"));
         }
         else if (!isAmountMin(tax))
         {
-            errors.rejectValue("amount", "SBTax.amount.minMismatch", environment.getProperty("SBTax.amount.minMismatch"));
+            errors.rejectValue("amount", "SBTax.amount.minMismatch",
+                               environment.getProperty("SBTax.amount.minMismatch"));
         }
 
         if (isTaxRefundNull(tax))
         {
-            errors.rejectValue("taxRefund", "SBTax.taxRefund.nullMismatch", environment.getProperty("SBTax.taxRefund.nullMismatch"));
+            errors.rejectValue("taxRefund", "SBTax.taxRefund.nullMismatch",
+                               environment.getProperty("SBTax.taxRefund.nullMismatch"));
         }
         else if (!isTaxRefundMin(tax))
         {
-            errors.rejectValue("taxRefund", "SBTax.taxRefund.minMismatch", environment.getProperty("SBTax.taxRefund.minMismatch"));
+            errors.rejectValue("taxRefund", "SBTax.taxRefund.minMismatch",
+                               environment.getProperty("SBTax.taxRefund.minMismatch"));
         }
 
         if (!isPaidValid(tax))
         {
-            errors.rejectValue("isPaid", "SBTax.isPaid.validMismatch", environment.getProperty("SBTax.isPaid.validMismatch"));
+            errors.rejectValue("isPaid", "SBTax.isPaid.validMismatch",
+                               environment.getProperty("SBTax.isPaid.validMismatch"));
         }
     }
 

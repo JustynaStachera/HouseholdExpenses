@@ -9,14 +9,13 @@ import com.justyna.stachera.householdexpenses.domain.main.SBExpense;
 import com.justyna.stachera.householdexpenses.domain.main.SBUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains implemented methods from SBExpenseJoinedService interface.
  */
 @Service
@@ -30,10 +29,10 @@ public class SBExpenseJoinedImpl implements SBExpenseJoinedService
     /**
      * Argument constructor.
      *
-     * @param formOfPaymentDao It provides methods related with 'sbform_of_payment' table from database.
+     * @param formOfPaymentDao   It provides methods related with 'sbform_of_payment' table from database.
      * @param kindOfOperationDao It provides methods related with 'sbkind_of_operation' table from database.
      * @param expenseCategoryDao It provides methods related with 'sbexpense_category' table from database.
-     * @param expenseDao It provides methods related with 'sbexpense' table from database.
+     * @param expenseDao         It provides methods related with 'sbexpense' table from database.
      */
     @Autowired
     public SBExpenseJoinedImpl(SBFormOfPaymentDao formOfPaymentDao,

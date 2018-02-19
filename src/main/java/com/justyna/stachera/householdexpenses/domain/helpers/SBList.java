@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * POJO class which wraps {@link SBField} list.
  * {@link lombok.Lombok} library provides set/get methods and argument/non-argument constructors.
  * {@link Data} annotation causes problems. It contains badly overloaded toString, equals and hashCode methods, so it

@@ -77,17 +77,20 @@ public class SBKindOfLoanJoinedValidator implements Validator
 
         if (isDurationTimeNull(kindOfLoanJoined))
         {
-            errors.rejectValue("durationTime", "SBKindOfLoanJoined.durationTime.nullMismatch", environment.getProperty("SBKindOfLoanJoined.durationTime.nullMismatch"));
+            errors.rejectValue("durationTime", "SBKindOfLoanJoined.durationTime.nullMismatch",
+                               environment.getProperty("SBKindOfLoanJoined.durationTime.nullMismatch"));
         }
 
         if (!isDurationTimeNull(kindOfLoanJoined) && !isDurationTimeValid(kindOfLoanJoined))
         {
-            errors.rejectValue("durationTime", "SBKindOfLoanJoined.durationTime.rangeMismatch", environment.getProperty("SBKindOfLoanJoined.durationTime.rangeMismatch"));
+            errors.rejectValue("durationTime", "SBKindOfLoanJoined.durationTime.rangeMismatch",
+                               environment.getProperty("SBKindOfLoanJoined.durationTime.rangeMismatch"));
         }
 
         if (isCapitalisationIdNull(kindOfLoanJoined))
         {
-            errors.rejectValue("capitalisationId", "defaultNullMismatch", environment.getProperty("defaultNullMismatch"));
+            errors.rejectValue("capitalisationId", "defaultNullMismatch",
+                               environment.getProperty("defaultNullMismatch"));
         }
 
         if (isBankIdNull(kindOfLoanJoined))

@@ -45,7 +45,8 @@ public class SBAccountDataController implements SBWebsitesAndMessages
     private SBPasswordValidator passwordValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository}
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository}
      * and {@link org.springframework.validation.Validator} objects.
      *
      * @param userDao           It provides methods related with 'sbuser' table from database.
@@ -88,7 +89,7 @@ public class SBAccountDataController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(accountData);
+        modelAndView.setViewName(ACCOUNT_DATA);
 
         modelAndView.addObject("person", userDao.findByUsername(username).getPerson());
         modelAndView.addObject("password", new SBPassword());
@@ -175,7 +176,8 @@ public class SBAccountDataController implements SBWebsitesAndMessages
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
 
-            redirectAttributes.addFlashAttribute("passwordErrors", SBCustomUtils.convertStringListToSBFieldList(errors));
+            redirectAttributes.addFlashAttribute("passwordErrors",
+                                                 SBCustomUtils.convertStringListToSBFieldList(errors));
 
             return "redirect:/accountData";
         }

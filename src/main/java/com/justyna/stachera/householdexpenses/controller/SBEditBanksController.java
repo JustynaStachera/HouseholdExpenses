@@ -53,7 +53,9 @@ public class SBEditBanksController implements SBWebsitesAndMessages
     private SBBankValidator bankValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param bankDao       It provides methods related with 'sbbank' table from database.
      * @param bankCustomDao It provides extra methods related with 'sbbank' table from database.
@@ -109,7 +111,7 @@ public class SBEditBanksController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditBanks);
+        modelAndView.setViewName(MENU_EDIT_BANKS);
 
         modelAndView.addObject("banks", bankCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("banksSize", bankDao.findAll().size());
@@ -173,7 +175,7 @@ public class SBEditBanksController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditBanksAdd);
+        modelAndView.setViewName(MENU_EDIT_BANKS_ADD);
 
         modelAndView.addObject("bank", bank);
 
@@ -245,7 +247,7 @@ public class SBEditBanksController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditBanksModify);
+        modelAndView.setViewName(MENU_EDIT_BANKS_MODIFY);
 
         modelAndView.addObject("bank", bankDao.getOne(id));
 

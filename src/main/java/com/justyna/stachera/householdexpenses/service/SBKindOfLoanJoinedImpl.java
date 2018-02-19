@@ -9,14 +9,13 @@ import com.justyna.stachera.householdexpenses.domain.main.SBCapitalisation;
 import com.justyna.stachera.householdexpenses.domain.main.SBKindOfLoan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Class which contains implemented methods from {@link SBKindOfLoan}JoinedService interface.
  */
 @Service
@@ -29,8 +28,8 @@ public class SBKindOfLoanJoinedImpl implements SBKindOfLoanJoinedService
     /**
      * Argument constructor.
      *
-     * @param kindOfLoanDao It provides methods related with 'sbkind_of_loan' table from database.
-     * @param bankDao It provides methods related with 'sbbank' table from database.
+     * @param kindOfLoanDao     It provides methods related with 'sbkind_of_loan' table from database.
+     * @param bankDao           It provides methods related with 'sbbank' table from database.
      * @param capitalisationDao It provides methods related with 'sbcapitalisation' table from database.
      */
     @Autowired

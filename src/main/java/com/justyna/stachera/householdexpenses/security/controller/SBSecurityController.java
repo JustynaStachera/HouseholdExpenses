@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class SBSecurityController implements SBWebsitesAndMessages
 {
     private Logger logger = Logger.getLogger(this.getClass());
-
+    
     private SBPersonDao personDao;
     private SBExpenseDao expenseDao;
     private SBLoanDao loanDao;
@@ -48,7 +48,7 @@ public class SBSecurityController implements SBWebsitesAndMessages
     private SBUserDao userDao;
     private SBUserValidator userValidator;
     private SBUserPersonValidator personValidator;
-
+    
     /**
      * Argument constructor.
      *
@@ -77,7 +77,7 @@ public class SBSecurityController implements SBWebsitesAndMessages
         this.userValidator = userValidator;
         this.personValidator = personValidator;
     }
-
+    
     /**
      * A method is used to register a new user. It shows form to complete.
      *
@@ -88,10 +88,10 @@ public class SBSecurityController implements SBWebsitesAndMessages
     public String registrationGet(Model model)
     {
         model.addAttribute("user", new SBUser());
-
-        return registration;
+        
+        return REGISTRATION;
     }
-
+    
     /**
      * A method is used to register a new user. It validates {@link SBUser} object and saves it in database.
      *
@@ -107,14 +107,14 @@ public class SBSecurityController implements SBWebsitesAndMessages
     {
         userValidator.validate(user, bindingResult);
         personValidator.validate(user.getPerson(), bindingResult);
-
+        
         final String RIGHTS_MSG_TO_REMOVE = "Nie zaznaczono żadnego pola w sekcji 'Prawa'!";
         List<String> bindingResultFields = bindingResult.getFieldErrors()
                                                         .stream()
                                                         .map(FieldError::getField)
                                                         .collect(Collectors.toList());
         bindingResultFields.remove("isAdmin");
-
+        
         if (!bindingResultFields.isEmpty())
         {
             List<String> bindingResults = bindingResult
@@ -122,40 +122,41 @@ public class SBSecurityController implements SBWebsitesAndMessages
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
-
+            
             if (bindingResults.contains(RIGHTS_MSG_TO_REMOVE))
             {
                 bindingResults.remove(RIGHTS_MSG_TO_REMOVE);
             }
-
+            
             model.addAttribute("userErrors", SBCustomUtils.convertStringListToSBFieldList(bindingResults));
-
-            return registration;
+            
+            return REGISTRATION;
         }
-
+        
         user.setRole("ROLE_USER_ARM");
         user.setIsAdmin(false);
         user.setIsReadOnly(true);
         user.setIsAddOnly(true);
         user.setIsModifyOnly(true);
-
+        
         SBPerson savePerson = user.getPerson();
         savePerson.setUser(user);
         personDao.save(savePerson);
-
-        return registrationSuccess;
+        
+        return REGISTRATION_SUCCESS;
     }
-
+    
     /**
      * It shows a registration success methods.
+     *
      * @return A local view name.
      */
     @RequestMapping(value = "/registrationSuccess", method = RequestMethod.GET)
     public String registrationSuccessGet()
     {
-        return registrationSuccess;
+        return REGISTRATION_SUCCESS;
     }
-
+    
     /**
      * It log in user to application.
      *
@@ -176,7 +177,7 @@ public class SBSecurityController implements SBWebsitesAndMessages
                                        .isReadOnly(true)
                                        .isModifyOnly(true)
                                        .build();
-
+            
             SBPerson defaultPerson = SBPerson.builder()
                                              .name("Default")
                                              .surname("Default")
@@ -184,18 +185,18 @@ public class SBSecurityController implements SBWebsitesAndMessages
                                              .pesel("00321217394")
                                              .user(defaultUser)
                                              .build();
-
+            
             personDao.save(defaultPerson);
-
+            
             logger.info("No SUPER_ADMIN found - create default SUPER_ADMIN: " +
                         "{username: " + defaultUser.getUsername()
                         + ", password: " + defaultUser.getPassword()
                         + "}");
         }
-
-        return loginPage;
+        
+        return LOGIN_PAGE;
     }
-
+    
     /**
      * It log in user to application. It is required to log in.
      *
@@ -204,9 +205,9 @@ public class SBSecurityController implements SBWebsitesAndMessages
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost()
     {
-        return infoAndHelp;
+        return INFO_AND_HELP;
     }
-
+    
     /**
      * It log out user to application.
      *
@@ -215,19 +216,20 @@ public class SBSecurityController implements SBWebsitesAndMessages
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutGet()
     {
-        return logoutPage;
+        return LOGOUT_PAGE;
     }
-
+    
     /**
      * It log out user to application. It is required to log out.
+     *
      * @return A logical view name.
      */
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String logoutPost()
     {
-        return logoutPage;
+        return LOGOUT_PAGE;
     }
-
+    
     /**
      * It removes user from database if he wants to do it.
      *
@@ -241,28 +243,28 @@ public class SBSecurityController implements SBWebsitesAndMessages
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         SBUser user = userDao.findByUsername(username);
-
+        
         if (user.getRole().equals(SBRoles.ROLE_SUPER_ADMIN.toString()))
         {
             redirectAttributes.addFlashAttribute("removeAccountError",
                                                  new SBField("Nie można usunąć tego konta z poziomu aplikacji!"));
-
+            
             return "redirect:/accountData";
         }
-
+        
         Long personId = user.getPerson().getId();
         List<SBExpense> expenses = expenseDao.findAllByUser(user);
         List<SBLoan> loans = loanDao.findAllByUser(user);
         List<SBTax> taxes = taxDao.findAllByUser(user);
-
+        
         user.setPerson(null);
-
+        
         personDao.delete(personId);
         expenseDao.delete(expenses);
         loanDao.delete(loans);
         taxDao.delete(taxes);
         userDao.delete(user);
-
-        return removePage;
+        
+        return REMOVE_PAGE;
     }
 }

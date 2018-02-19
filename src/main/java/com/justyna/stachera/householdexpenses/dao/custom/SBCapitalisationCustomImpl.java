@@ -2,11 +2,11 @@ package com.justyna.stachera.householdexpenses.dao.custom;
 
 import com.justyna.stachera.householdexpenses.domain.main.SBCapitalisation;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -42,21 +42,21 @@ public class SBCapitalisationCustomImpl implements SBCapitalisationCustomDao
 
         switch (chosenEnum)
         {
-            case "id_asc":
-                query = entityManager.createQuery("select b from SBCapitalisation b order by b.id asc");
-                break;
-            case "id_desc":
-                query = entityManager.createQuery("select b from SBCapitalisation b order by b.id desc");
-                break;
-            case "name_asc":
-                query = entityManager.createQuery("select b from SBCapitalisation b order by b.name asc");
-                break;
-            case "name_desc":
-                query = entityManager.createQuery("select b from SBCapitalisation b order by b.name desc");
-                break;
-            default:
-                query = entityManager.createQuery("select b from SBCapitalisation b order by b.id asc");
-                break;
+        case "id_asc":
+            query = entityManager.createQuery("select b from SBCapitalisation b order by b.id asc");
+            break;
+        case "id_desc":
+            query = entityManager.createQuery("select b from SBCapitalisation b order by b.id desc");
+            break;
+        case "name_asc":
+            query = entityManager.createQuery("select b from SBCapitalisation b order by b.name asc");
+            break;
+        case "name_desc":
+            query = entityManager.createQuery("select b from SBCapitalisation b order by b.name desc");
+            break;
+        default:
+            query = entityManager.createQuery("select b from SBCapitalisation b order by b.id asc");
+            break;
         }
 
         return (List<SBCapitalisation>) query.getResultList();

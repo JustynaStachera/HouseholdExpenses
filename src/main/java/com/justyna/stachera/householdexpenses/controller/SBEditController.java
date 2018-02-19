@@ -26,7 +26,8 @@ public class SBEditController implements SBWebsitesAndMessages
     private SBUserDao userDao;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository}.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository}.
      *
      * @param userDao It provides methods related with 'sbuser' table from database.
      */
@@ -54,6 +55,6 @@ public class SBEditController implements SBWebsitesAndMessages
         model.addAttribute("isReadOnly", logInUser.getIsReadOnly());
         model.addAttribute("isModifyOnly", logInUser.getIsModifyOnly());
 
-        return menuEdit;
+        return MENU_EDIT;
     }
 }

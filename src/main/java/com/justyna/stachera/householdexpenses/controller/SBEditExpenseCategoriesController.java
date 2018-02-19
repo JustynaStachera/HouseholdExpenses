@@ -50,7 +50,9 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
     private SBExpenseCategoryValidator expenseCategoryValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param expenseCategoryDao       It provides methods related with 'sbexpense_category' table from database.
      * @param expenseCategoryCustomDao It provides extra methods related with 'sbexpense_category' table from database.
@@ -97,7 +99,7 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditExpenseCategories);
+        modelAndView.setViewName(MENU_EDIT_EXPENSE_CATEGORIES);
 
         modelAndView.addObject("expenseCategories", expenseCategoryCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("expenseCategoriesSize", expenseCategoryDao.findAll().size());
@@ -154,7 +156,7 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditExpenseCategoriesAdd);
+        modelAndView.setViewName(MENU_EDIT_EXPENSE_CATEGORIES_ADD);
 
         modelAndView.addObject("expenseCategory", expenseCategory);
 
@@ -168,7 +170,8 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
      * and saves it in database.
      *
      * @param expenseCategory    An object where the data from a form is located.
-     * @param bindingResult      An interface BindingResult implementation which checks {@link SBExpenseCategory} object.
+     * @param bindingResult      An interface BindingResult implementation which checks {@link SBExpenseCategory}
+     *                           object.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation
      *                           that allows a sending arguments to other methods.
      * @return A value from @{@link RequestMapping} after redirecting.
@@ -227,7 +230,7 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditExpenseCategoriesModify);
+        modelAndView.setViewName(MENU_EDIT_EXPENSE_CATEGORIES_MODIFY);
 
         modelAndView.addObject("expenseCategory", expenseCategoryDao.getOne(id));
 
@@ -237,10 +240,12 @@ public class SBEditExpenseCategoriesController implements SBWebsitesAndMessages
     }
 
     /**
-     * A method is used to modify a expense category record. It validates {@link SBExpenseCategory} object and modifies it.
+     * A method is used to modify a expense category record. It validates {@link SBExpenseCategory} object and
+     * modifies it.
      *
      * @param expenseCategory    An object where the data from a form is located.
-     * @param bindingResult      An interface BindingResult implementation which checks {@link SBExpenseCategory} object.
+     * @param bindingResult      An interface BindingResult implementation which checks {@link SBExpenseCategory}
+     *                           object.
      * @param redirectAttributes An interface {@link RedirectAttributes} implementation
      *                           that allows a sending arguments to other methods.
      * @return A value from @{@link RequestMapping} after redirecting.

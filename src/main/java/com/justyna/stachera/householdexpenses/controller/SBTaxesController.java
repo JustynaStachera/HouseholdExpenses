@@ -49,7 +49,9 @@ public class SBTaxesController implements SBWebsitesAndMessages
     private SBTaxValidator taxValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param userDao      It provides methods related with 'sbuser' table from database.
      * @param taxDao       It provides methods related with 'sbtax' table from database.
@@ -103,7 +105,7 @@ public class SBTaxesController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(taxes);
+        modelAndView.setViewName(TAXES);
 
         modelAndView.addObject("taxes", taxDao.findAll());
         modelAndView.addObject("taxesSize", taxDao.findAll().size());
@@ -207,7 +209,7 @@ public class SBTaxesController implements SBWebsitesAndMessages
 
         model.addAttribute("taxErrors", taxErrors.getList());
 
-        return taxesAdd;
+        return TAXES_ADD;
     }
 
     /**
@@ -303,7 +305,7 @@ public class SBTaxesController implements SBWebsitesAndMessages
 
         model.addAttribute("taxErrors", taxErrors.getList());
 
-        return taxesModify;
+        return TAXES_MODIFY;
     }
 
     /**
@@ -347,7 +349,7 @@ public class SBTaxesController implements SBWebsitesAndMessages
             redirectAttributes.addFlashAttribute("taxErrors",
                                                  new SBList(SBCustomUtils.convertStringListToSBFieldList(errors)));
 
-            return "redirect:/taxes/modify/" + tax.getId();
+            return "redirect:/TAXES/modify/" + tax.getId();
         }
 
         /* ********************************************************************************** */

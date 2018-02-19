@@ -50,7 +50,9 @@ public class SBEditFormsOfPaymentController implements SBWebsitesAndMessages
     private SBFormOfPaymentValidator formOfPaymentValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param formOfPaymentDao       It provides methods related with 'sbform_of_payment' table from database.
      * @param formOfPaymentCustomDao It provides extra methods related with 'sbform_of_payment' table from database.
@@ -103,7 +105,7 @@ public class SBEditFormsOfPaymentController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditFormsOfPayment);
+        modelAndView.setViewName(MENU_EDIT_FORMS_OF_PAYMENT);
 
         modelAndView.addObject("formsOfPayment", formOfPaymentCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("formsOfPaymentSize", formOfPaymentDao.findAll().size());
@@ -164,7 +166,7 @@ public class SBEditFormsOfPaymentController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditFormsOfPaymentAdd);
+        modelAndView.setViewName(MENU_EDIT_FORMS_OF_PAYMENT_ADD);
 
         modelAndView.addObject("formOfPayment", formOfPayment);
 
@@ -237,7 +239,7 @@ public class SBEditFormsOfPaymentController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditFormsOfPaymentModify);
+        modelAndView.setViewName(MENU_EDIT_FORMS_OF_PAYMENT_MODIFY);
 
         modelAndView.addObject("formOfPayment", formOfPaymentDao.getOne(id));
 

@@ -27,7 +27,7 @@ public class SBFormOfPaymentValidator implements Validator
 {
     private SBFormOfPaymentDao formOfPaymentDao;
     private Environment environment;
-
+    
     /**
      * Argument constructor.
      *
@@ -41,7 +41,7 @@ public class SBFormOfPaymentValidator implements Validator
         this.formOfPaymentDao = formOfPaymentDao;
         this.environment = environment;
     }
-
+    
     /**
      * It checks if class to check equals {@link Validator} class type.
      *
@@ -53,7 +53,7 @@ public class SBFormOfPaymentValidator implements Validator
     {
         return SBFormOfPayment.class.isAssignableFrom(clazz);
     }
-
+    
     /**
      * It validates the {@link Object} fields.
      *
@@ -64,18 +64,18 @@ public class SBFormOfPaymentValidator implements Validator
     public void validate(Object o, Errors errors)
     {
         SBFormOfPayment formOfPayment = (SBFormOfPayment) o;
-
+        
         if (isEmpty(formOfPayment))
         {
             errors.rejectValue("name", "emptyMismatch.name", environment.getProperty("emptyMismatch.name"));
         }
-
+        
         if (!isNameUnique(formOfPayment))
         {
             errors.rejectValue("name", "uniqueMismatch.name", environment.getProperty("uniqueMismatch.name"));
         }
     }
-
+    
     /**
      * It checks if {@link SBFormOfPayment} name field is empty.
      *
@@ -86,7 +86,7 @@ public class SBFormOfPaymentValidator implements Validator
     {
         return formOfPayment.getName().isEmpty();
     }
-
+    
     /**
      * It checks if {@link SBFormOfPayment} name field is unique.
      *
@@ -102,7 +102,7 @@ public class SBFormOfPaymentValidator implements Validator
                                                        .filter(b -> b.getId().equals(formOfPayment.getId()) &&
                                                                     b.getName().equals(formOfPayment.getName()))
                                                        .findFirst();
-
+        
         return formOfPaymentOptional.isPresent() ||
                !formOfPaymentNames.stream().anyMatch(formOfPayment.getName()::equalsIgnoreCase);
     }

@@ -34,74 +34,75 @@ public class SBUser
     @Id
     @GeneratedValue
     private Long id;
-
+    
     /**
      * Username.
      */
     private String username;
-
+    
     /**
      * Password.
      */
     private String password;
-
+    
     /**
      * Variable to check password. It's not saved in the database.
      */
     @Transient
     private String confirmPassword;
-
+    
     /**
      * If user is admin.
      */
     private Boolean isAdmin;
-
+    
     /**
      * If user has READ_ONLY right.
      */
     private Boolean isReadOnly;
-
+    
     /**
      * If user has ADD_ONLY right.
      */
     private Boolean isAddOnly;
-
+    
     /**
      * If user has MODIFY_ONLY right.
      */
     private Boolean isModifyOnly;
-
+    
     /**
      * User role.
      */
     private String role;
-
+    
     /**
      * {@link SBPerson} object.
-     * {@literal @}Valid annotation is required because BindingResult catches errors from SBPerson, when {@link SBUser} is validated.
+     * {@literal @}Valid annotation is required because BindingResult catches errors from SBPerson, when
+     * {@link SBUser} is validated.
      */
     @Valid
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     private SBPerson person;
-
+    
     /**
      * SBTax collection including this {@link SBUser} object.
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Set<SBTax> taxes = new LinkedHashSet<>();
-
+    
     /**
      * {@link SBLoan} collection including this {@link SBUser} object.
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Set<SBLoan> loans = new LinkedHashSet<>();
-
+    
     /**
      * {@link SBExpense} collection including this {@link SBUser} object.
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Set<SBExpense> expenses = new LinkedHashSet<>();
-
+    
     @Override
     public String toString()
     {

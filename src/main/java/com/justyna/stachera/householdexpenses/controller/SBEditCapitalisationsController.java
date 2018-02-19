@@ -53,7 +53,9 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
     private SBCapitalisationValidator capitalisationValidator;
 
     /**
-     * An argument constructor autowired interfaces extending {@link org.springframework.data.jpa.repository.JpaRepository} and {@link org.springframework.validation.Validator} objects.
+     * An argument constructor autowired interfaces extending
+     * {@link org.springframework.data.jpa.repository.JpaRepository} and
+     * {@link org.springframework.validation.Validator} objects.
      *
      * @param capitalisationDao       It provides methods related with 'sbcapitalisation' table from database.
      * @param capitalisationCustomDao It provides extra methods related with 'sbcapitalisation' table from database.
@@ -109,7 +111,7 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditCapitalisations);
+        modelAndView.setViewName(MENU_EDIT_CAPITALISATIONS);
 
         modelAndView.addObject("capitalisations", capitalisationCustomDao.sortTableBy(chosenEnum));
         modelAndView.addObject("capitalisationsSize", capitalisationDao.findAll().size());
@@ -172,7 +174,7 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditCapitalisationsAdd);
+        modelAndView.setViewName(MENU_EDIT_CAPITALISATIONS_ADD);
 
         modelAndView.addObject("capitalisation", capitalisation);
 
@@ -182,7 +184,8 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
     }
 
     /**
-     * A method is used to add a new capitalisation record. It validates {@link SBCapitalisation} object and saves it in database.
+     * A method is used to add a new capitalisation record. It validates {@link SBCapitalisation} object and saves it
+     * in database.
      *
      * @param capitalisation     An object where the data from a form is located.
      * @param bindingResult      An interface BindingResult implementation which checks {@link SBCapitalisation} object.
@@ -241,7 +244,7 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
 
         /* ********************************************************************************** */
 
-        modelAndView.setViewName(menuEditCapitalisationsModify);
+        modelAndView.setViewName(MENU_EDIT_CAPITALISATIONS_MODIFY);
 
         modelAndView.addObject("capitalisation", capitalisationDao.getOne(id));
 
@@ -275,7 +278,8 @@ public class SBEditCapitalisationsController implements SBWebsitesAndMessages
                     .collect(Collectors.toList());
 
             redirectAttributes.addFlashAttribute("capitalisationErrors",
-                                                 new SBList(SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
+                                                 new SBList(
+                                                         SBCustomUtils.convertStringListToSBFieldList(bindingResults)));
 
             return "redirect:/edit/capitalisations/modify/" + capitalisation.getId();
         }

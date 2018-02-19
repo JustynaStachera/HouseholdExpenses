@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Justyna Stachera.
  * User: jstachera
  * Date: 02.01.2018
- *
+ * <p>
  * Enum which contains values needed to sort 'sbexpense' records and viewing notifications on drop list.
  */
 public enum SBExpenseFields
@@ -31,10 +31,10 @@ public enum SBExpenseFields
     price_desc("CENA", "malejąco"),
     dateOfPurchase_asc("DATA ZAKUPU", "rosnąco"),
     dateOfPurchase_desc("DATA ZAKUPU", "malejąco");
-
+    
     private String value;
     private String order;
-
+    
     /**
      * Argument constructor.
      *
@@ -46,7 +46,7 @@ public enum SBExpenseFields
         this.value = value;
         this.order = order;
     }
-
+    
     /**
      * It returns field name in Polish.
      *
@@ -56,14 +56,14 @@ public enum SBExpenseFields
     {
         return value;
     }
-
+    
     /**
      * It returns order name in Polish.
      *
      * @return Order name in Polish.
      */
     public String getOrder() { return order; }
-
+    
     /**
      * It returns proper ENUM.
      *
@@ -81,7 +81,7 @@ public enum SBExpenseFields
                      .get()
                      .toString();
     }
-
+    
     /**
      * It returns ENUM list.
      *
@@ -90,7 +90,7 @@ public enum SBExpenseFields
     public static List<String> getList()
     {
         List<String> fieldNames = new ArrayList<>();
-
+        
         for (SBExpenseFields s : SBExpenseFields.values())
         {
             if (s.getOrder() != null)
@@ -98,7 +98,7 @@ public enum SBExpenseFields
                 fieldNames.add(s.getValue() + " - " + s.getOrder());
             }
         }
-
+        
         return fieldNames;
     }
 }
